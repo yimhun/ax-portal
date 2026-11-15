@@ -102,6 +102,15 @@
     .tds-subcard:hover {
       background-color: var(--tds-border);
     }
+    .tds-bm-head {
+      background-color: #f3f7ff;
+      border-bottom: 1px solid #e6eeff;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+    html.dark .tds-bm-head {
+      background-color: #1f2533;
+      border-bottom: 1px solid #2b3245;
+    }
     .tds-segment {
       background-color: var(--tds-segment-bg);
     }
@@ -330,7 +339,7 @@
           </div>
           <button type="button" data-goto="bookmarks" class="tds-press text-[13px] font-semibold tds-text-4 hover:text-[#3182f6] py-1 px-2 rounded-lg">전체보기 &rarr;</button>
         </div>
-        <div id="home-quick-bookmarks" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+        <div id="home-quick-bookmarks" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
       </div>
 
       <!-- Recent Notices -->
@@ -358,10 +367,17 @@
         </div>
         <div class="flex items-center justify-between gap-2 flex-wrap">
           <div id="bookmark-categories" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1"></div>
-          <label class="inline-flex items-center gap-1.5 text-[12px] font-semibold tds-text-4 cursor-pointer">
-            <input id="toggle-show-hidden-bm" type="checkbox" class="w-4 h-4 accent-[#3182f6] rounded" />
-            <span>숨긴 항목 보기</span>
-          </label>
+          <div class="flex items-center gap-2.5 ml-auto">
+            <div class="inline-flex items-center tds-segment p-0.5 rounded-[10px]" role="group" aria-label="보기 칸수">
+              <button type="button" data-bm-cols="1" class="bm-col-btn px-2.5 py-1 rounded-[8px] text-[11px] font-bold transition">1칸</button>
+              <button type="button" data-bm-cols="2" class="bm-col-btn px-2.5 py-1 rounded-[8px] text-[11px] font-bold transition">2칸</button>
+              <button type="button" data-bm-cols="3" class="bm-col-btn px-2.5 py-1 rounded-[8px] text-[11px] font-bold transition">3칸</button>
+            </div>
+            <label class="inline-flex items-center gap-1.5 text-[12px] font-semibold tds-text-4 cursor-pointer">
+              <input id="toggle-show-hidden-bm" type="checkbox" class="w-4 h-4 accent-[#3182f6] rounded" />
+              <span>숨김</span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -790,6 +806,7 @@
       const STORAGE_KEY = 'team_portal_data_v1';
       const THEME_KEY = 'team_portal_theme_v1';
       const CURRENT_USER_KEY = 'team_portal_current_user_v1';
+      const BM_COLS_KEY = 'team_portal_bm_cols_v1';
       const READ_NOTICES_KEY = 'team_portal_read_notices_v1';
       const RECENT_BM_KEY = 'team_portal_recent_bm_v1';
 
@@ -952,6 +969,12 @@
       let activeAdminSub = 'bm';
       let adminUnlocked = false;
       let bmCategoryFilter = '전체';
+      let bmCols = (function () {
+        try {
+          const v = localStorage.getItem(BM_COLS_KEY);
+          return ['1', '2', '3'].includes(v) ? v : '2';
+        } catch (e) { return '2'; }
+      })();
       let snippetCategoryFilter = '전체';
       let noticeFilter = '전체';
       let showHiddenBm = false;
@@ -1069,7 +1092,9 @@ function writeRows(sheet, headers, items, keys) {
     }
     values.push(row);
   }
-  sheet.getRange(1, 1, values.length, headers.length).setValues(values);
+  var range = sheet.getRange(1, 1, values.length, headers.length);
+  range.setNumberFormat('@');
+  range.setValues(values);
 }
 
 function doGet(e) {
@@ -1176,7 +1201,9 @@ function doPost(e) {
               state.settings.title = data.settings.title || state.settings.title;
               state.settings.subtitle = data.settings.subtitle || state.settings.subtitle;
               if (data.settings.pin !== undefined && String(data.settings.pin).trim() !== '') {
-                state.settings.pin = String(data.settings.pin);
+                let sp = String(data.settings.pin).trim();
+                if (/^\d{1,3}$/.test(sp)) sp = sp.padStart(4, '0');
+                state.settings.pin = sp;
               }
             }
             if (Array.isArray(data.bookmarks) && data.bookmarks.length > 0) {
@@ -1193,7 +1220,11 @@ function doPost(e) {
               state.snippets = data.snippets;
             }
             if (Array.isArray(data.users) && data.users.length > 0) {
-              state.users = data.users;
+              state.users = data.users.map(u => {
+                let p = String(u.pin !== undefined && u.pin !== null ? u.pin : '').trim();
+                if (/^\d{1,3}$/.test(p)) p = p.padStart(4, '0');
+                return { ...u, pin: p || '0000' };
+              });
             }
             try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
             updateSyncUI('ok', '시트 연동됨');
@@ -1639,16 +1670,12 @@ function doPost(e) {
           quickEl.innerHTML = '<div class="col-span-full tds-subcard p-5 text-[13px] font-medium tds-text-5 text-center">고정된 북마크가 없어요. 북마크 탭에서 ★ 별표를 눌러 고정해 보세요!</div>';
         } else {
           quickEl.innerHTML = quickBms.map(b => `
-            <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press tds-hover-lift tds-subcard p-3.5 flex items-center gap-3.5 group">
-              ${renderBookmarkIconHtml(b, 'w-12 h-12')}
+            <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press tds-hover-lift tds-subcard p-3 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 group">
+              ${renderBookmarkIconHtml(b, 'w-10 h-10 sm:w-11 sm:h-11')}
               <div class="min-w-0 flex-1">
-                <div class="flex items-center gap-1.5">
-                  <p class="text-[15px] font-bold tds-text-1 group-hover:text-[#3182f6] truncate">${escapeHtml(b.name)}</p>
-                  ${b.owner && b.owner !== 'ALL' ? '<span class="text-[10px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-1.5 py-0.5 rounded">내 링크</span>' : ''}
-                </div>
-                <p class="text-[12px] font-medium tds-text-4 truncate mt-0.5">${escapeHtml(b.desc || b.category)}</p>
+                <p class="text-[13px] sm:text-[14px] font-bold tds-text-1 group-hover:text-[#3182f6] truncate">${escapeHtml(b.name)}</p>
+                <p class="text-[11px] font-medium tds-text-4 truncate mt-0.5">${escapeHtml(b.owner && b.owner !== 'ALL' ? '내 링크 · ' + b.category : b.category)}</p>
               </div>
-              <svg class="w-4 h-4 tds-text-5 group-hover:text-[#3182f6] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
             </a>
           `).join('');
         }
@@ -1694,8 +1721,22 @@ function doPost(e) {
           return catMatch && qMatch;
         });
 
+        document.querySelectorAll('.bm-col-btn').forEach(btn => {
+          const active = btn.dataset.bmCols === bmCols;
+          btn.className = 'bm-col-btn px-2.5 py-1 rounded-[8px] text-[11px] font-bold transition ' +
+            (active ? 'tds-card tds-text-1 shadow-2xs' : 'tds-text-4');
+        });
+
         document.getElementById('bookmark-count').textContent = `${filtered.length}`;
         const listEl = document.getElementById('bookmarks-list');
+        if (bmCols === '1') {
+          listEl.className = 'grid grid-cols-1 gap-3';
+        } else if (bmCols === '3') {
+          listEl.className = 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2.5';
+        } else {
+          listEl.className = 'grid grid-cols-2 sm:grid-cols-3 gap-3';
+        }
+
         if (filtered.length === 0) {
           listEl.innerHTML = '<div class="col-span-full tds-card p-10 text-center text-[14px] font-medium tds-text-5">조건에 맞는 북마크가 없어요.</div>';
           return;
@@ -1705,31 +1746,74 @@ function doPost(e) {
           const pinned = isBmPinnedForUser(b);
           const hidden = isBmHiddenForUser(b);
           const isMine = user && b.owner === user.id;
+
+          if (bmCols === '3') {
+            return `
+            <div class="tds-card tds-hover-lift overflow-hidden flex flex-col text-center relative ${hidden ? 'opacity-60' : ''}">
+              <button type="button" data-toggle-bm-pin="${escapeHtml(b.id)}" title="내 홈 고정 토글" class="tds-press absolute top-2 right-2 z-10 w-6 h-6 rounded-full text-xs flex items-center justify-center ${pinned ? 'text-[#f59f00] bg-[#f59f00]/15' : 'tds-text-5'}">★</button>
+              <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press tds-bm-head p-3 flex flex-col items-center gap-2 w-full group">
+                ${renderBookmarkIconHtml(b, 'w-11 h-11')}
+                <p class="text-[12px] font-bold tds-text-1 group-hover:text-[#3182f6] line-clamp-2 leading-snug w-full">${escapeHtml(b.name)}</p>
+              </a>
+              <div class="px-2 py-2">
+                <span class="text-[10px] font-semibold tds-text-5 truncate block">${escapeHtml(b.category)}</span>
+              </div>
+            </div>`;
+          }
+
+          if (bmCols === '2') {
+            return `
+            <div class="tds-card tds-hover-lift overflow-hidden flex flex-col justify-between ${hidden ? 'opacity-60' : ''}">
+              <div class="tds-bm-head p-3 sm:p-3.5 flex items-start justify-between gap-1.5">
+                <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 min-w-0 group flex-1">
+                  ${renderBookmarkIconHtml(b, 'w-10 h-10')}
+                  <div class="min-w-0">
+                    <p class="text-[14px] font-bold tds-text-1 group-hover:text-[#3182f6] truncate">${escapeHtml(b.name)}</p>
+                    <span class="inline-block text-[10px] font-bold text-[#3182f6] bg-[#3182f6]/10 px-1.5 py-0.5 rounded mt-0.5">${escapeHtml(isMine ? '내 북마크' : b.category)}</span>
+                  </div>
+                </a>
+                <button type="button" data-toggle-bm-pin="${escapeHtml(b.id)}" title="내 홈 고정 토글" class="tds-press w-7 h-7 rounded-full text-sm flex items-center justify-center shrink-0 ${pinned ? 'text-[#f59f00] bg-[#f59f00]/15' : 'tds-text-5 bg-white/70 dark:bg-black/20'}">★</button>
+              </div>
+              <div class="p-3 sm:p-3.5 flex-1 flex flex-col justify-between gap-2.5">
+                <p class="text-[12px] tds-text-4 line-clamp-2 leading-snug">${escapeHtml(b.desc || b.url)}</p>
+                <div class="flex items-center justify-between gap-1 pt-2 border-t tds-divider">
+                  <button type="button" data-copy-url="${escapeHtml(normalizeUrl(b.url))}" class="tds-press text-[11px] font-semibold tds-text-4 py-1 px-2 rounded-lg tds-subcard">복사</button>
+                  <div class="flex items-center gap-1">
+                    ${isMine ? `<button type="button" data-delete-personal-bm="${escapeHtml(b.id)}" class="tds-press text-[11px] font-bold text-[#f04452] py-1 px-2 rounded-lg bg-[#f04452]/12">삭제</button>` : ''}
+                    <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press text-[11px] font-bold text-[#3182f6] py-1 px-2.5 rounded-lg bg-[#3182f6]/12">열기</a>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          }
+
           return `
-          <div class="tds-card tds-hover-lift p-5 flex flex-col justify-between gap-3.5 ${hidden ? 'opacity-60' : ''}">
-            <div class="flex items-start justify-between gap-2">
+          <div class="tds-card tds-hover-lift overflow-hidden flex flex-col justify-between ${hidden ? 'opacity-60' : ''}">
+            <div class="tds-bm-head p-4 sm:p-5 flex items-start justify-between gap-2">
               <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 min-w-0 group flex-1">
                 ${renderBookmarkIconHtml(b, 'w-12 h-12')}
                 <div class="min-w-0">
                   <p class="text-[16px] font-bold tds-text-1 group-hover:text-[#3182f6] truncate">${escapeHtml(b.name)}</p>
                   <div class="flex items-center gap-1.5 mt-1">
-                    <span class="inline-block text-[11px] font-bold tds-text-4 tds-subcard px-2 py-0.5 rounded-[6px]">${escapeHtml(b.category)}</span>
-                    ${isMine ? '<span class="inline-block text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-2 py-0.5 rounded-[6px]">내 북마크</span>' : ''}
+                    <span class="inline-block text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/10 px-2 py-0.5 rounded-[6px]">${escapeHtml(b.category)}</span>
+                    ${isMine ? '<span class="inline-block text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/15 px-2 py-0.5 rounded-[6px]">내 북마크</span>' : ''}
                   </div>
                 </div>
               </a>
               <div class="flex items-center gap-1 shrink-0">
-                <button type="button" data-toggle-bm-pin="${escapeHtml(b.id)}" title="내 홈 고정 토글" class="tds-press w-9 h-9 rounded-full text-base flex items-center justify-center ${pinned ? 'text-[#f59f00] bg-[#f59f00]/15' : 'tds-text-5 tds-subcard'}">★</button>
-                <button type="button" data-toggle-bm-hide="${escapeHtml(b.id)}" title="${hidden ? '다시 보이기' : '내 화면에서 숨기기'}" class="tds-press w-9 h-9 rounded-full text-xs font-bold flex items-center justify-center tds-text-5 tds-subcard">${hidden ? '👁️' : '✕'}</button>
+                <button type="button" data-toggle-bm-pin="${escapeHtml(b.id)}" title="내 홈 고정 토글" class="tds-press w-9 h-9 rounded-full text-base flex items-center justify-center ${pinned ? 'text-[#f59f00] bg-[#f59f00]/15' : 'tds-text-5 bg-white/70 dark:bg-black/20'}">★</button>
+                <button type="button" data-toggle-bm-hide="${escapeHtml(b.id)}" title="${hidden ? '다시 보이기' : '내 화면에서 숨기기'}" class="tds-press w-9 h-9 rounded-full text-xs font-bold flex items-center justify-center tds-text-5 bg-white/70 dark:bg-black/20">${hidden ? '👁️' : '✕'}</button>
               </div>
             </div>
-            <p class="text-[13px] tds-text-3 line-clamp-2 leading-relaxed">${escapeHtml(b.desc || b.url)}</p>
-            <div class="flex items-center justify-between gap-2 pt-3 border-t tds-divider">
-              <div class="flex items-center gap-1.5">
-                <button type="button" data-copy-url="${escapeHtml(normalizeUrl(b.url))}" class="tds-press text-[13px] font-semibold tds-text-3 py-1.5 px-3 rounded-[10px] tds-subcard">주소 복사</button>
-                ${isMine ? `<button type="button" data-delete-personal-bm="${escapeHtml(b.id)}" class="tds-press text-[12px] font-bold text-[#f04452] py-1.5 px-2.5 rounded-[10px] bg-[#f04452]/12">삭제</button>` : ''}
+            <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between gap-3">
+              <p class="text-[13px] tds-text-3 line-clamp-2 leading-relaxed">${escapeHtml(b.desc || b.url)}</p>
+              <div class="flex items-center justify-between gap-2 pt-3 border-t tds-divider">
+                <div class="flex items-center gap-1.5">
+                  <button type="button" data-copy-url="${escapeHtml(normalizeUrl(b.url))}" class="tds-press text-[13px] font-semibold tds-text-3 py-1.5 px-3 rounded-[10px] tds-subcard">주소 복사</button>
+                  ${isMine ? `<button type="button" data-delete-personal-bm="${escapeHtml(b.id)}" class="tds-press text-[12px] font-bold text-[#f04452] py-1.5 px-2.5 rounded-[10px] bg-[#f04452]/12">삭제</button>` : ''}
+                </div>
+                <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press text-[13px] font-bold text-[#3182f6] py-1.5 px-3.5 rounded-[10px] bg-[#3182f6]/12 hover:bg-[#3182f6]/20">바로가기 &rarr;</a>
               </div>
-              <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press text-[13px] font-bold text-[#3182f6] py-1.5 px-3.5 rounded-[10px] bg-[#3182f6]/12 hover:bg-[#3182f6]/20">바로가기 &rarr;</a>
             </div>
           </div>`;
         }).join('');
@@ -2292,6 +2376,14 @@ function doPost(e) {
         const visitLink = e.target.closest('[data-visit-bm]');
         if (visitLink) {
           recordBookmarkVisit(visitLink.dataset.visitBm);
+        }
+
+        const bmColBtn = e.target.closest('[data-bm-cols]');
+        if (bmColBtn) {
+          bmCols = bmColBtn.dataset.bmCols;
+          try { localStorage.setItem(BM_COLS_KEY, bmCols); } catch (err) {}
+          renderBookmarks();
+          return;
         }
 
         const bmCatBtn = e.target.closest('[data-bm-cat]');
