@@ -1,0 +1,2539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#3182f6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="AX팀 포털" />
+  <title>AX팀 업무 포털 | 북마크 &amp; 공지사항</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@v1.4/dist/tossface.css" />
+  <style>
+    :root {
+      --tds-blue: #3182f6;
+      --tds-blue-hover: #1b64da;
+      --tds-blue-bg: #e8f3ff;
+      --tds-bg: #f2f4f6;
+      --tds-surface: #ffffff;
+      --tds-surface-sub: #f9fafb;
+      --tds-border: #e5e8eb;
+      --tds-divider: #f2f4f6;
+      --tds-text-1: #191f28;
+      --tds-text-2: #333d4b;
+      --tds-text-3: #4e5968;
+      --tds-text-4: #6b7684;
+      --tds-text-5: #8b95a1;
+      --tds-header-bg: rgba(242, 244, 246, 0.85);
+      --tds-nav-bg: rgba(255, 255, 255, 0.95);
+      --tds-segment-bg: rgba(229, 232, 235, 0.85);
+      --tds-card-shadow: 0 2px 14px rgba(25, 31, 40, 0.035);
+    }
+
+    html.dark {
+      --tds-blue: #3182f6;
+      --tds-blue-hover: #4593fc;
+      --tds-blue-bg: rgba(49, 130, 246, 0.18);
+      --tds-bg: #101013;
+      --tds-surface: #17171c;
+      --tds-surface-sub: #202027;
+      --tds-border: #2c2c35;
+      --tds-divider: #24242c;
+      --tds-text-1: #f9fafb;
+      --tds-text-2: #e5e8eb;
+      --tds-text-3: #b0b8c1;
+      --tds-text-4: #8b95a1;
+      --tds-text-5: #6b7684;
+      --tds-header-bg: rgba(16, 16, 19, 0.85);
+      --tds-nav-bg: rgba(23, 23, 28, 0.95);
+      --tds-segment-bg: #202027;
+      --tds-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: var(--tds-bg);
+      color: var(--tds-text-1);
+      letter-spacing: -0.02em;
+      word-break: keep-all;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .tossface {
+      font-family: Tossface, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tds-header {
+      background-color: var(--tds-header-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .tds-card {
+      background-color: var(--tds-surface);
+      border-radius: 24px;
+      box-shadow: var(--tds-card-shadow);
+      transition: background-color 0.25s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease;
+    }
+    .tds-subcard {
+      background-color: var(--tds-surface-sub);
+      border-radius: 18px;
+      transition: background-color 0.2s ease, transform 0.16s cubic-bezier(0.2, 0, 0, 1);
+    }
+    .tds-subcard:hover {
+      background-color: var(--tds-border);
+    }
+    .tds-segment {
+      background-color: var(--tds-segment-bg);
+    }
+    .tds-bottom-nav {
+      background-color: var(--tds-nav-bg);
+      border-color: var(--tds-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .tds-divider {
+      border-color: var(--tds-divider);
+    }
+    .tds-text-1 { color: var(--tds-text-1); }
+    .tds-text-2 { color: var(--tds-text-2); }
+    .tds-text-3 { color: var(--tds-text-3); }
+    .tds-text-4 { color: var(--tds-text-4); }
+    .tds-text-5 { color: var(--tds-text-5); }
+
+    .tds-press {
+      transition: transform 0.16s cubic-bezier(0.2, 0, 0, 1), background-color 0.16s ease, opacity 0.16s ease;
+    }
+    .tds-press:active {
+      transform: scale(0.965);
+    }
+    @media (hover: hover) {
+      .tds-hover-lift:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    .tds-input {
+      background-color: var(--tds-surface-sub);
+      border: 1.5px solid var(--tds-border);
+      border-radius: 16px;
+      color: var(--tds-text-1);
+      transition: all 0.18s ease;
+    }
+    .tds-input::placeholder { color: var(--tds-text-5); }
+    .tds-input:focus {
+      background-color: var(--tds-surface);
+      border-color: #3182f6;
+      box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.18);
+      outline: none;
+    }
+
+    .tds-search {
+      background-color: var(--tds-surface);
+      color: var(--tds-text-1);
+      box-shadow: var(--tds-card-shadow);
+      border: 1.5px solid transparent;
+      transition: all 0.18s ease;
+    }
+    .tds-search::placeholder { color: var(--tds-text-5); }
+    .tds-search:focus {
+      border-color: #3182f6;
+      box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.18);
+      outline: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade { animation: fadeIn 0.24s cubic-bezier(0.2, 0, 0, 1) both; }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-sync { animation: spinSlow 0.9s linear infinite; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col pb-24 md:pb-12">
+
+  <!-- LOGIN GATE SCREEN (User Selection + PIN) -->
+  <div id="login-screen" class="fixed inset-0 z-50 bg-[#f2f4f6] dark:bg-[#101013] flex items-center justify-center p-5 overflow-y-auto">
+    <div class="w-full max-w-md space-y-5 my-auto animate-fade">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 rounded-[22px] bg-[#3182f6] text-white flex items-center justify-center mx-auto shadow-[0_8px_24px_rgba(49,130,246,0.35)]">
+          <span class="tossface text-3xl leading-none">🚀</span>
+        </div>
+        <h1 id="login-portal-title" class="text-[24px] font-bold tds-text-1 tracking-tight">AX팀 업무 포털</h1>
+        <p id="login-portal-subtitle" class="text-[14px] font-medium tds-text-4">접속할 사용자를 선택하고 비밀번호를 입력하세요</p>
+      </div>
+
+      <div class="tds-card p-6 space-y-5">
+        <div>
+          <label class="block text-[13px] font-bold tds-text-3 mb-2.5">팀원 선택</label>
+          <div id="login-user-list" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+        </div>
+
+        <form id="login-form" class="hidden space-y-4 pt-2 border-t tds-divider animate-fade">
+          <div class="flex items-center justify-between">
+            <span id="login-selected-label" class="text-[14px] font-bold text-[#3182f6]"></span>
+            <span class="text-[12px] tds-text-5">4자리 PIN 입력</span>
+          </div>
+          <input id="login-pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" class="tds-input w-full text-center tracking-[0.6em] text-xl font-bold py-3.5" required />
+          <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+            <input id="login-remember" type="checkbox" checked class="w-4 h-4 accent-[#3182f6] rounded" />
+            <span class="text-[13px] font-medium tds-text-3">이 기기에서 로그인 유지</span>
+          </label>
+          <button type="submit" class="tds-press w-full py-3.5 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[16px] shadow-[0_4px_12px_rgba(49,130,246,0.28)]">포털 접속하기</button>
+        </form>
+      </div>
+
+      <p class="text-center text-[12px] tds-text-5">초기 PIN 안내 · 팀장(관리자) 8891 / 팀원 0000</p>
+    </div>
+  </div>
+
+  <!-- Top Header -->
+  <header class="sticky top-0 z-30 tds-header">
+    <div class="max-w-4xl mx-auto px-5 pt-4 pb-2.5 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-[14px] bg-[#3182f6] text-white flex items-center justify-center shrink-0 shadow-[0_4px_12px_rgba(49,130,246,0.35)]">
+          <span class="tossface text-xl leading-none">🚀</span>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 id="portal-title" class="text-[19px] md:text-[21px] font-bold tds-text-1 tracking-tight truncate">AX팀 업무 포털</h1>
+            <span id="sync-badge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold tds-segment tds-text-4 shrink-0">연결 준비</span>
+          </div>
+          <p id="portal-subtitle" class="text-[13px] font-medium tds-text-5 truncate">네오커뮤니케이션즈 업무 허브</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Current User Switch Pill -->
+        <button type="button" id="btn-switch-user" title="사용자 전환 / 로그아웃" class="tds-press tds-card px-3 py-1.5 rounded-full flex items-center gap-1.5 text-[13px] font-bold tds-text-2">
+          <span id="header-user-avatar" class="tossface text-base leading-none">👤</span>
+          <span id="header-user-name" class="max-w-[64px] truncate">사용자</span>
+        </button>
+
+        <!-- Sync Refresh Button -->
+        <button type="button" id="btn-header-sync" title="시트에서 최신 데이터 불러오기" class="hidden tds-press w-10 h-10 rounded-full tds-card tds-text-3 hover:text-[#3182f6] flex items-center justify-center">
+          <svg id="sync-icon-svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button type="button" id="btn-theme-toggle" title="라이트/다크 모드 전환" class="tds-press w-10 h-10 rounded-full tds-card flex items-center justify-center">
+          <span id="theme-icon" class="tossface text-lg leading-none">🌙</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation + Search Row -->
+    <div class="max-w-4xl mx-auto px-5 pb-3 pt-1 space-y-2.5">
+      <nav class="hidden md:flex items-center gap-1 tds-segment p-1 rounded-[16px]">
+        <button type="button" data-tab="home" class="nav-btn flex-1 py-2 rounded-[12px] text-[14px] font-semibold transition">홈</button>
+        <button type="button" data-tab="bookmarks" class="nav-btn flex-1 py-2 rounded-[12px] text-[14px] font-semibold transition">북마크</button>
+        <button type="button" data-tab="snippets" class="nav-btn flex-1 py-2 rounded-[12px] text-[14px] font-semibold transition">상용구</button>
+        <button type="button" data-tab="notices" class="nav-btn flex-1 py-2 rounded-[12px] text-[14px] font-semibold transition">공지사항</button>
+        <button type="button" data-tab="admin" class="nav-btn flex-1 py-2 rounded-[12px] text-[14px] font-semibold transition">관리자</button>
+      </nav>
+
+      <div id="search-wrapper" class="relative">
+        <svg class="w-4 h-4 tds-text-5 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
+        </svg>
+        <input
+          id="global-search"
+          type="search"
+          placeholder="사이트명, 공지사항, 상용구 검색 (단축키 /)"
+          class="tds-search w-full pl-11 pr-10 py-3 text-[15px] font-medium rounded-[18px]"
+        />
+        <button id="clear-search" type="button" class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full tds-segment tds-text-4 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-5 py-3 space-y-5">
+
+    <!-- HOME TAB -->
+    <section id="view-home" class="space-y-5 animate-fade">
+      <!-- Interactive Personal Greeting & Stats -->
+      <div class="tds-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <span id="greeting-date" class="text-[13px] font-semibold text-[#3182f6]">오늘의 업무 브리핑</span>
+          <h2 id="greeting-title" class="text-[20px] sm:text-[22px] font-bold tds-text-1 tracking-tight">오늘도 기분 좋은 하루 보내세요!</h2>
+          <p id="greeting-sub" class="text-[13px] tds-text-4">내 맞춤 북마크와 팀 공지사항을 한눈에 확인하세요.</p>
+        </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+          <button type="button" data-goto="bookmarks" class="tds-press tds-subcard px-4 py-3 text-left min-w-[92px]">
+            <p class="text-[11px] font-semibold tds-text-4">내 북마크</p>
+            <p id="stat-bm-count" class="text-[18px] font-bold text-[#3182f6] mt-0.5">0개</p>
+          </button>
+          <button type="button" data-goto="notices" class="tds-press tds-subcard px-4 py-3 text-left min-w-[92px]">
+            <p class="text-[11px] font-semibold tds-text-4">안 읽은 공지</p>
+            <p id="stat-unread-count" class="text-[18px] font-bold text-[#f04452] mt-0.5">0건</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Recently Visited Strip -->
+      <div id="recent-visits-card" class="hidden tds-card px-5 py-4">
+        <div class="flex items-center justify-between gap-2 mb-2.5">
+          <span class="text-[13px] font-bold tds-text-3 flex items-center gap-1.5">
+            <span class="tossface">🕒</span> 내가 방금 열어본 사이트
+          </span>
+          <button type="button" id="btn-clear-recent" class="text-[11px] font-semibold tds-text-5 hover:text-[#f04452]">기록 지우기</button>
+        </div>
+        <div id="recent-visits-list" class="flex items-center gap-2 overflow-x-auto no-scrollbar"></div>
+      </div>
+
+      <!-- Pinned Notices -->
+      <div class="tds-card p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-3.5">
+          <div class="flex items-center gap-2">
+            <span class="tossface text-lg">📢</span>
+            <h2 class="text-[18px] font-bold tds-text-1">놓치면 안 되는 공지</h2>
+          </div>
+          <button type="button" data-goto="notices" class="tds-press text-[13px] font-semibold tds-text-4 hover:text-[#3182f6] py-1 px-2 rounded-lg">전체보기 &rarr;</button>
+        </div>
+        <div id="home-pinned-notices" class="space-y-2.5"></div>
+      </div>
+
+      <!-- Personal Quick Bookmarks -->
+      <div class="tds-card p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="tossface text-lg">⚡</span>
+            <h2 id="home-bm-heading" class="text-[18px] font-bold tds-text-1">내 고정 업무 사이트</h2>
+          </div>
+          <button type="button" data-goto="bookmarks" class="tds-press text-[13px] font-semibold tds-text-4 hover:text-[#3182f6] py-1 px-2 rounded-lg">전체보기 &rarr;</button>
+        </div>
+        <div id="home-quick-bookmarks" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+      </div>
+
+      <!-- Recent Notices -->
+      <div class="tds-card p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="tossface text-lg">📌</span>
+            <h2 class="text-[18px] font-bold tds-text-1">최근 올라온 소식</h2>
+          </div>
+          <button type="button" data-goto="admin" class="tds-press text-[13px] font-semibold text-[#3182f6] bg-[#3182f6]/12 hover:bg-[#3182f6]/20 py-1.5 px-3 rounded-[10px]">+ 새 항목 등록</button>
+        </div>
+        <div id="home-recent-notices" class="divide-y tds-divider"></div>
+      </div>
+    </section>
+
+    <!-- BOOKMARKS TAB (Supports Personal Bookmarks + Team Bookmarks + Personal Pin/Hide) -->
+    <section id="view-bookmarks" class="hidden space-y-4 animate-fade">
+      <div class="tds-card p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h2 class="text-[20px] font-bold tds-text-1">업무용 북마크 <span id="bookmark-count" class="text-[15px] font-semibold text-[#3182f6] ml-1"></span></h2>
+            <p class="text-[13px] tds-text-5 mt-0.5">별표(★)를 눌러 내 홈 화면을 직접 구성하고, 내 전용 북마크도 추가할 수 있어요.</p>
+          </div>
+          <button type="button" id="btn-quick-add-bm" class="tds-press text-[13px] font-bold bg-[#3182f6]/12 text-[#3182f6] hover:bg-[#3182f6]/20 px-3.5 py-2 rounded-[12px] shrink-0">+ 북마크 추가</button>
+        </div>
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <div id="bookmark-categories" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1"></div>
+          <label class="inline-flex items-center gap-1.5 text-[12px] font-semibold tds-text-4 cursor-pointer">
+            <input id="toggle-show-hidden-bm" type="checkbox" class="w-4 h-4 accent-[#3182f6] rounded" />
+            <span>숨긴 항목 보기</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Personal Quick Add Modal / Inline Drawer -->
+      <form id="personal-bm-form" class="hidden tds-card p-5 space-y-3.5 border-2 border-[#3182f6]/40 animate-fade">
+        <div class="flex items-center justify-between">
+          <h3 class="text-[16px] font-bold text-[#3182f6]">내 전용 북마크 바로 추가</h3>
+          <button type="button" id="btn-close-personal-bm" class="text-[13px] font-semibold tds-text-4 px-2 py-1 rounded-lg tds-subcard">닫기</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input id="p-bm-name" type="text" required placeholder="사이트 이름 *" class="tds-input px-3.5 py-2.5 text-[14px]" />
+          <input id="p-bm-url" type="text" required placeholder="URL 주소 (예: https://...)" class="tds-input px-3.5 py-2.5 text-[14px]" />
+          <select id="p-bm-category" class="tds-input px-3.5 py-2.5 text-[14px]">
+            <option value="내 북마크">내 북마크</option>
+            <option value="영업/계약">영업/계약</option>
+            <option value="마케팅/웹">마케팅/웹</option>
+            <option value="업무지원">업무지원</option>
+          </select>
+          <input id="p-bm-desc" type="text" placeholder="간단한 메모 (선택)" class="tds-input px-3.5 py-2.5 text-[14px]" />
+        </div>
+        <div class="flex items-center justify-between gap-3 pt-1">
+          <label class="inline-flex items-center gap-2 text-[13px] font-semibold tds-text-3 cursor-pointer">
+            <input id="p-bm-favicon" type="checkbox" checked class="w-4 h-4 accent-[#3182f6] rounded" />
+            <span>사이트 자동 로고(파비콘) 사용</span>
+          </label>
+          <button type="submit" class="tds-press px-5 py-2.5 bg-[#3182f6] text-white text-[14px] font-bold rounded-[12px]">내 목록에 추가</button>
+        </div>
+      </form>
+
+      <div id="bookmarks-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
+    </section>
+
+    <!-- SNIPPETS TAB (One-Tap Copy Cards) -->
+    <section id="view-snippets" class="hidden space-y-4 animate-fade">
+      <div class="tds-card p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h2 class="text-[20px] font-bold tds-text-1">원탭 복사 상용구 <span id="snippet-count" class="text-[15px] font-semibold text-[#3182f6] ml-1"></span></h2>
+            <p class="text-[13px] tds-text-5 mt-0.5">카드의 복사 버튼을 누르면 계좌번호, 사업자정보, 안내 문구가 즉시 복사돼요.</p>
+          </div>
+          <button type="button" id="btn-quick-add-snippet" class="tds-press text-[13px] font-bold bg-[#3182f6]/12 text-[#3182f6] hover:bg-[#3182f6]/20 px-3.5 py-2 rounded-[12px] shrink-0">+ 상용구 추가</button>
+        </div>
+        <div id="snippet-categories" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1"></div>
+      </div>
+
+      <div id="snippets-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
+    </section>
+
+    <!-- NOTICES TAB -->
+    <section id="view-notices" class="hidden space-y-4 animate-fade">
+      <div class="tds-card p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h2 class="text-[20px] font-bold tds-text-1">팀 공지사항 <span id="notice-count" class="text-[15px] font-semibold text-[#3182f6] ml-1"></span></h2>
+            <p class="text-[13px] tds-text-5 mt-0.5">안 읽은 공지에는 파란 점이 표시되며, 클릭하면 읽음 처리됩니다.</p>
+          </div>
+          <button type="button" id="btn-quick-add-notice" class="tds-press text-[13px] font-bold bg-[#3182f6]/12 text-[#3182f6] hover:bg-[#3182f6]/20 px-3.5 py-2 rounded-[12px] shrink-0">+ 공지 작성</button>
+        </div>
+        <div id="notice-filters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1"></div>
+      </div>
+
+      <div id="notices-list" class="space-y-3"></div>
+    </section>
+
+    <!-- ADMIN TAB -->
+    <section id="view-admin" class="hidden space-y-5 animate-fade">
+      <!-- Admin Lock Screen (For non-admin members or PIN unlock) -->
+      <div id="admin-lock-screen" class="hidden tds-card p-8 max-w-sm mx-auto text-center space-y-5 mt-4">
+        <div class="w-16 h-16 rounded-[22px] bg-[#3182f6]/12 flex items-center justify-center mx-auto">
+          <span class="tossface text-3xl">🔒</span>
+        </div>
+        <div>
+          <h2 class="text-[20px] font-bold tds-text-1">관리자 전용 메뉴</h2>
+          <p class="text-[14px] tds-text-4 mt-1">팀 공통 공지/설정 변경을 위해 관리자 PIN을 입력하세요.</p>
+        </div>
+        <form id="admin-unlock-form" class="space-y-3.5">
+          <input id="admin-pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" class="tds-input w-full text-center tracking-[0.6em] text-xl font-bold py-3.5" />
+          <button type="submit" class="tds-press w-full py-3.5 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[16px]">잠금 해제</button>
+        </form>
+      </div>
+
+      <!-- Admin Dashboard Content -->
+      <div id="admin-content" class="space-y-5">
+        <!-- Admin Sub-tabs -->
+        <div class="flex items-center gap-1.5 tds-segment p-1.5 rounded-[18px] overflow-x-auto no-scrollbar">
+          <button type="button" data-admin-sub="bm" class="admin-sub-btn flex-1 min-w-[84px] py-2.5 px-3 rounded-[14px] text-[13px] sm:text-[14px] font-bold transition">북마크</button>
+          <button type="button" data-admin-sub="notice" class="admin-sub-btn flex-1 min-w-[84px] py-2.5 px-3 rounded-[14px] text-[13px] sm:text-[14px] font-bold transition">공지사항</button>
+          <button type="button" data-admin-sub="snippet" class="admin-sub-btn flex-1 min-w-[84px] py-2.5 px-3 rounded-[14px] text-[13px] sm:text-[14px] font-bold transition">상용구</button>
+          <button type="button" data-admin-sub="users" class="admin-sub-btn flex-1 min-w-[84px] py-2.5 px-3 rounded-[14px] text-[13px] sm:text-[14px] font-bold transition">팀원 관리</button>
+          <button type="button" data-admin-sub="settings" class="admin-sub-btn flex-1 min-w-[96px] py-2.5 px-3 rounded-[14px] text-[13px] sm:text-[14px] font-bold transition">포털 설정·백업</button>
+        </div>
+
+        <!-- SUB: Bookmark Manager -->
+        <div id="admin-panel-bm" class="space-y-5">
+          <form id="bm-form" class="tds-card p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 id="bm-form-title" class="text-[18px] font-bold tds-text-1">새 북마크 추가</h3>
+              <button type="button" id="bm-cancel-edit" class="hidden text-[13px] font-semibold tds-text-4 px-2.5 py-1 rounded-lg tds-subcard">취소</button>
+            </div>
+            <input type="hidden" id="bm-edit-id" />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">사이트 이름 *</label>
+                <input id="bm-name" type="text" required placeholder="예: KT세일즈 홈페이지" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">URL 주소 *</label>
+                <input id="bm-url" type="text" required placeholder="예: https://ktsales.co.kr" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">카테고리</label>
+                <select id="bm-category" class="tds-input w-full px-4 py-3 text-[15px]">
+                  <option value="영업/계약">영업/계약</option>
+                  <option value="마케팅/웹">마케팅/웹</option>
+                  <option value="업무지원">업무지원</option>
+                  <option value="기타">기타</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">대상 (공통 / 개인)</label>
+                <select id="bm-owner" class="tds-input w-full px-4 py-3 text-[15px]"></select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">아이콘 (이모지 또는 사이트 자동 파비콘)</label>
+                <div class="flex flex-wrap items-center gap-2">
+                  <input id="bm-icon" type="text" maxlength="4" value="🔗" class="tds-input tossface w-14 text-center px-2 py-2.5 text-lg" />
+                  <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                    <button type="button" class="emoji-pick tds-press tossface w-10 h-10 tds-subcard rounded-[12px] text-lg flex items-center justify-center shrink-0">🌐</button>
+                    <button type="button" class="emoji-pick tds-press tossface w-10 h-10 tds-subcard rounded-[12px] text-lg flex items-center justify-center shrink-0">📊</button>
+                    <button type="button" class="emoji-pick tds-press tossface w-10 h-10 tds-subcard rounded-[12px] text-lg flex items-center justify-center shrink-0">📝</button>
+                    <button type="button" class="emoji-pick tds-press tossface w-10 h-10 tds-subcard rounded-[12px] text-lg flex items-center justify-center shrink-0">💼</button>
+                    <button type="button" class="emoji-pick tds-press tossface w-10 h-10 tds-subcard rounded-[12px] text-lg flex items-center justify-center shrink-0">🤖</button>
+                    <button type="button" class="emoji-pick tds-press tossface w-10 h-10 tds-subcard rounded-[12px] text-lg flex items-center justify-center shrink-0">📁</button>
+                  </div>
+                  <label class="inline-flex items-center gap-2 ml-auto cursor-pointer select-none">
+                    <input id="bm-use-favicon" type="checkbox" checked class="w-4 h-4 accent-[#3182f6] rounded" />
+                    <span class="text-[13px] font-semibold tds-text-2">사이트 로고(파비콘) 자동 표시</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">한 줄 설명</label>
+              <input id="bm-desc" type="text" placeholder="예: 하이오더·서빙로봇 공식 안내 및 상담 접수" class="tds-input w-full px-4 py-3 text-[15px]" />
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <label class="inline-flex items-center gap-2.5 cursor-pointer select-none">
+                <input id="bm-pinned" type="checkbox" class="w-5 h-5 accent-[#3182f6] rounded-md" />
+                <span class="text-[14px] font-semibold tds-text-2">기본 홈 고정 북마크로 설정</span>
+              </label>
+              <button type="submit" id="bm-submit-btn" class="tds-press px-6 py-3 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[14px] ml-auto">북마크 저장</button>
+            </div>
+          </form>
+
+          <div class="tds-card p-5 sm:p-6 space-y-3">
+            <h3 class="text-[17px] font-bold tds-text-1">등록된 북마크 목록</h3>
+            <div id="admin-bm-list" class="divide-y tds-divider"></div>
+          </div>
+        </div>
+
+        <!-- SUB: Notice Manager -->
+        <div id="admin-panel-notice" class="hidden space-y-5">
+          <form id="notice-form" class="tds-card p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 id="notice-form-title" class="text-[18px] font-bold tds-text-1">새 공지사항 등록</h3>
+              <button type="button" id="notice-cancel-edit" class="hidden text-[13px] font-semibold tds-text-4 px-2.5 py-1 rounded-lg tds-subcard">취소</button>
+            </div>
+            <input type="hidden" id="notice-edit-id" />
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div class="sm:col-span-2">
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">공지 제목 *</label>
+                <input id="notice-title" type="text" required placeholder="예: 11월 영업 정책 및 프로모션 안내" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">태그 구분</label>
+                <select id="notice-tag" class="tds-input w-full px-4 py-3 text-[15px]">
+                  <option value="필독">필독</option>
+                  <option value="정책">정책</option>
+                  <option value="일반">일반</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">작성자</label>
+              <input id="notice-author" type="text" placeholder="예: 팀장 임훈" class="tds-input w-full px-4 py-3 text-[15px]" />
+            </div>
+            <div>
+              <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">공지 본문 *</label>
+              <textarea id="notice-body" rows="5" required placeholder="팀원들에게 공유할 공지사항, 안내 문구, 또는 참고 텍스트를 입력하세요." class="tds-input w-full px-4 py-3 text-[15px] resize-y leading-relaxed"></textarea>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <label class="inline-flex items-center gap-2.5 cursor-pointer select-none">
+                <input id="notice-pinned" type="checkbox" class="w-5 h-5 accent-[#3182f6] rounded-md" />
+                <span class="text-[14px] font-semibold tds-text-2">홈 화면 '놓치면 안 되는 공지'에 고정</span>
+              </label>
+              <button type="submit" id="notice-submit-btn" class="tds-press px-6 py-3 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[14px] ml-auto">공지 등록</button>
+            </div>
+          </form>
+
+          <div class="tds-card p-5 sm:p-6 space-y-3">
+            <h3 class="text-[17px] font-bold tds-text-1">등록된 공지사항 목록</h3>
+            <div id="admin-notice-list" class="divide-y tds-divider"></div>
+          </div>
+        </div>
+
+        <!-- SUB: Snippet Manager -->
+        <div id="admin-panel-snippet" class="hidden space-y-5">
+          <form id="snippet-form" class="tds-card p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 id="snippet-form-title" class="text-[18px] font-bold tds-text-1">새 상용구 등록</h3>
+              <button type="button" id="snippet-cancel-edit" class="hidden text-[13px] font-semibold tds-text-4 px-2.5 py-1 rounded-lg tds-subcard">취소</button>
+            </div>
+            <input type="hidden" id="snippet-edit-id" />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">상용구 제목 *</label>
+                <input id="snippet-title" type="text" required placeholder="예: ㈜네오커뮤니케이션즈 사업자정보" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">분류</label>
+                <select id="snippet-category" class="tds-input w-full px-4 py-3 text-[15px]">
+                  <option value="사업자/계좌">사업자/계좌</option>
+                  <option value="영업멘트">영업멘트</option>
+                  <option value="요금/할인">요금/할인</option>
+                  <option value="기타">기타</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">복사될 텍스트 내용 *</label>
+              <textarea id="snippet-content" rows="4" required placeholder="버튼 한 번으로 복사할 문구, 계좌번호, 안내 메시지를 입력하세요." class="tds-input w-full px-4 py-3 text-[15px] resize-y leading-relaxed"></textarea>
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" id="snippet-submit-btn" class="tds-press px-6 py-3 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[14px]">상용구 저장</button>
+            </div>
+          </form>
+
+          <div class="tds-card p-5 sm:p-6 space-y-3">
+            <h3 class="text-[17px] font-bold tds-text-1">등록된 상용구 목록</h3>
+            <div id="admin-snippet-list" class="divide-y tds-divider"></div>
+          </div>
+        </div>
+
+        <!-- SUB: Users Manager -->
+        <div id="admin-panel-users" class="hidden space-y-5">
+          <form id="user-form" class="tds-card p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 id="user-form-title" class="text-[18px] font-bold tds-text-1">팀원 계정 추가 / 수정</h3>
+              <button type="button" id="user-cancel-edit" class="hidden text-[13px] font-semibold tds-text-4 px-2.5 py-1 rounded-lg tds-subcard">취소</button>
+            </div>
+            <input type="hidden" id="user-edit-id" />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">이름 *</label>
+                <input id="user-name" type="text" required placeholder="예: 홍길동" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">직책 / 역할</label>
+                <input id="user-title" type="text" placeholder="예: 영업 매니저" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">접속 4자리 비밀번호(PIN) *</label>
+                <input id="user-pin" type="text" inputmode="numeric" maxlength="4" required placeholder="예: 1234" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">권한 및 아바타</label>
+                <div class="flex items-center gap-2">
+                  <input id="user-avatar" type="text" maxlength="4" value="🧑‍💼" class="tds-input tossface w-14 text-center px-2 py-2.5 text-lg" />
+                  <select id="user-role" class="tds-input flex-1 px-3.5 py-3 text-[14px]">
+                    <option value="member">일반 팀원</option>
+                    <option value="admin">관리자</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" id="user-submit-btn" class="tds-press px-6 py-3 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[14px]">팀원 저장</button>
+            </div>
+          </form>
+
+          <div class="tds-card p-5 sm:p-6 space-y-3">
+            <h3 class="text-[17px] font-bold tds-text-1">등록된 팀원 목록</h3>
+            <div id="admin-user-list" class="divide-y tds-divider"></div>
+          </div>
+        </div>
+
+        <!-- SUB: Portal Settings & Backup -->
+        <div id="admin-panel-settings" class="hidden space-y-5">
+          <form id="settings-form" class="tds-card p-5 sm:p-6 space-y-4">
+            <h3 class="text-[18px] font-bold tds-text-1">포털 기본 정보 및 실시간 연동</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">포털 이름</label>
+                <input id="setting-title" type="text" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">부제목</label>
+                <input id="setting-subtitle" type="text" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">관리자 공용 PIN</label>
+                <input id="setting-pin" type="password" inputmode="numeric" maxlength="4" placeholder="예: 8891" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+              <div>
+                <label class="block text-[13px] font-semibold tds-text-3 mb-1.5">Google Apps Script 웹 앱 URL</label>
+                <input id="setting-script-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="tds-input w-full px-4 py-3 text-[15px]" />
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-2.5 pt-2">
+              <div class="flex flex-wrap gap-2">
+                <button type="button" id="btn-test-sync" class="tds-press px-4 py-2.5 bg-[#008a4b]/15 text-[#00a859] text-[13px] font-bold rounded-[12px]">시트에서 불러오기</button>
+                <button type="button" id="btn-push-sync" class="tds-press px-4 py-2.5 bg-[#3182f6]/15 text-[#3182f6] text-[13px] font-bold rounded-[12px]">현재 데이터 시트에 저장</button>
+              </div>
+              <button type="submit" class="tds-press px-6 py-3 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[14px] ml-auto">설정 저장</button>
+            </div>
+          </form>
+
+          <div class="tds-card p-5 sm:p-6 space-y-3.5">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <h3 class="text-[17px] font-bold tds-text-1">Google Sheets 실시간 연동 (v2: 팀원·상용구 포함)</h3>
+                <p class="text-[13px] tds-text-4 mt-0.5">팀원별 개인 화면과 상용구도 시트에 저장하려면 아래 최신 Apps Script로 한 번 업데이트해 주세요.</p>
+              </div>
+              <button type="button" id="btn-copy-gas" class="tds-press px-4 py-2.5 bg-[#3182f6] text-white text-[13px] font-bold rounded-[12px] shrink-0">Apps Script 코드 복사</button>
+            </div>
+            <ol class="text-[13px] tds-text-3 space-y-1.5 list-decimal list-inside tds-subcard p-4 leading-relaxed">
+              <li>연결된 Google 스프레드시트에서 <strong>확장 프로그램 &gt; Apps Script</strong>를 엽니다.</li>
+              <li>기존 코드를 지우고 <strong>Apps Script 코드 복사</strong> 버튼으로 복사한 코드를 붙여넣고 저장합니다.</li>
+              <li>우측 상단 <strong>배포 &gt; 배포 관리 &gt; 연필(수정) &gt; 새 버전</strong>을 선택해 배포합니다. (기존 URL 그대로 유지!)</li>
+            </ol>
+            <pre id="gas-code-preview" class="text-[11px] bg-[#191f28] text-slate-100 p-4 rounded-[16px] overflow-x-auto max-h-48 leading-relaxed"></pre>
+          </div>
+
+          <div class="tds-card p-5 sm:p-6 space-y-4">
+            <div>
+              <h3 class="text-[17px] font-bold tds-text-1">데이터 파일 백업 (JSON)</h3>
+              <p class="text-[13px] tds-text-4 mt-0.5">현재 등록된 모든 데이터를 파일로 백업하거나 복원할 수 있습니다.</p>
+            </div>
+            <div class="flex flex-wrap gap-2.5">
+              <button type="button" id="btn-export-json" class="tds-press px-4 py-2.5 tds-subcard tds-text-2 text-[13px] font-bold rounded-[12px]">JSON 내보내기</button>
+              <label class="tds-press px-4 py-2.5 tds-subcard tds-text-2 text-[13px] font-bold rounded-[12px] cursor-pointer">
+                JSON 불러오기
+                <input id="input-import-json" type="file" accept="application/json" class="hidden" />
+              </label>
+              <button type="button" id="btn-reset-data" class="tds-press px-4 py-2.5 bg-[#f04452]/15 text-[#f04452] text-[13px] font-bold rounded-[12px] ml-auto">기본 샘플로 초기화</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-30 tds-bottom-nav border-t rounded-t-[22px] shadow-[0_-4px_20px_rgba(0,0,0,0.06)] px-2 py-2 flex items-center justify-around">
+    <button type="button" data-tab="home" class="mobile-nav-btn tds-press flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-semibold transition">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+      <span>홈</span>
+    </button>
+    <button type="button" data-tab="bookmarks" class="mobile-nav-btn tds-press flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-semibold transition">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
+      <span>북마크</span>
+    </button>
+    <button type="button" data-tab="snippets" class="mobile-nav-btn tds-press flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-semibold transition">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
+      <span>상용구</span>
+    </button>
+    <button type="button" data-tab="notices" class="mobile-nav-btn tds-press flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-semibold transition">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>
+      <span>공지사항</span>
+    </button>
+    <button type="button" data-tab="admin" class="mobile-nav-btn tds-press flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-semibold transition">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      <span>관리자</span>
+    </button>
+  </nav>
+
+  <!-- Notice Detail Bottom Sheet / Modal -->
+  <div id="notice-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="tds-card w-full sm:max-w-lg rounded-t-[28px] sm:rounded-[28px] shadow-2xl max-h-[85vh] flex flex-col overflow-hidden animate-fade">
+      <div class="w-10 h-1.5 tds-segment rounded-full mx-auto mt-3 sm:hidden"></div>
+      <div class="px-6 pt-5 pb-4 border-b tds-divider flex items-start justify-between gap-3">
+        <div class="space-y-1.5 min-w-0">
+          <div class="flex items-center gap-2">
+            <span id="modal-notice-tag" class="px-2.5 py-0.5 rounded-[8px] text-[12px] font-bold"></span>
+            <span id="modal-notice-date" class="text-[13px] font-medium tds-text-5"></span>
+          </div>
+          <h3 id="modal-notice-title" class="text-[19px] font-bold tds-text-1 leading-snug break-words"></h3>
+          <p id="modal-notice-author" class="text-[13px] font-medium tds-text-4"></p>
+        </div>
+        <button type="button" id="close-notice-modal" class="tds-press w-9 h-9 rounded-full tds-subcard tds-text-4 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto flex-1">
+        <p id="modal-notice-body" class="text-[15px] tds-text-2 whitespace-pre-wrap leading-relaxed break-words"></p>
+      </div>
+      <div class="px-6 py-4 border-t tds-divider flex items-center gap-2.5">
+        <button type="button" id="copy-notice-text" class="tds-press flex-1 py-3.5 tds-subcard tds-text-2 text-[15px] font-bold rounded-[16px]">본문 복사</button>
+        <button type="button" id="close-notice-modal-btn" class="tds-press flex-1 py-3.5 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[15px] font-bold rounded-[16px]">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div id="confirm-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="tds-card w-full max-w-xs rounded-[24px] shadow-2xl p-6 space-y-5 animate-fade">
+      <div class="space-y-1.5">
+        <h3 id="confirm-title" class="text-[18px] font-bold tds-text-1">확인</h3>
+        <p id="confirm-message" class="text-[14px] tds-text-4 leading-relaxed"></p>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <button type="button" id="confirm-cancel" class="tds-press flex-1 py-3 text-[14px] font-bold tds-text-3 tds-subcard rounded-[14px]">취소</button>
+        <button type="button" id="confirm-ok" class="tds-press flex-1 py-3 text-[14px] font-bold text-white bg-[#f04452] hover:bg-[#d9303e] rounded-[14px]">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="hidden fixed bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 z-50 bg-[#191f28] dark:bg-[#3182f6] text-white text-[13px] font-semibold px-5 py-3 rounded-full shadow-xl whitespace-nowrap"></div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'team_portal_data_v1';
+      const THEME_KEY = 'team_portal_theme_v1';
+      const CURRENT_USER_KEY = 'team_portal_current_user_v1';
+      const READ_NOTICES_KEY = 'team_portal_read_notices_v1';
+      const RECENT_BM_KEY = 'team_portal_recent_bm_v1';
+
+      const EMBEDDED_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8rBdqplad-IcG_QAy5lgLk7nm_u0rq9_hpewqxWd4s4Rq05BMwtVZle1UzRzhu0gjOg/exec';
+
+      // Dynamic PWA Setup (App Icon + Standalone Manifest)
+      (function setupPWA() {
+        try {
+          const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="120" fill="#3182f6"/><text x="256" y="320" font-size="250" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="700">AX</text></svg>`;
+          const iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgIcon);
+
+          const appleIcon = document.createElement('link');
+          appleIcon.rel = 'apple-touch-icon';
+          appleIcon.href = iconUrl;
+          document.head.appendChild(appleIcon);
+
+          const manifest = {
+            name: 'AX팀 업무 포털',
+            short_name: 'AX팀 포털',
+            start_url: '.',
+            display: 'standalone',
+            background_color: '#f2f4f6',
+            theme_color: '#3182f6',
+            icons: [{ src: iconUrl, sizes: '512x512', type: 'image/svg+xml' }]
+          };
+          const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+          const manifestLink = document.createElement('link');
+          manifestLink.rel = 'manifest';
+          manifestLink.href = URL.createObjectURL(blob);
+          document.head.appendChild(manifestLink);
+        } catch (e) {}
+      })();
+
+      const DEFAULT_DATA = {
+        settings: {
+          title: 'AX팀 업무 포털',
+          subtitle: '네오커뮤니케이션즈 업무 허브',
+          pin: '8891',
+          scriptUrl: EMBEDDED_SCRIPT_URL
+        },
+        users: [
+          { id: 'u-1', name: '임훈', title: '팀장 · 관리자', avatar: '👑', pin: '8891', role: 'admin', prefs: { pinnedBmIds: null, hiddenBmIds: [] } },
+          { id: 'u-2', name: '윤희님', title: '정책 · 영업지원', avatar: '💼', pin: '0000', role: 'member', prefs: { pinnedBmIds: null, hiddenBmIds: [] } },
+          { id: 'u-3', name: '영업팀원', title: 'B2B 영업', avatar: '🚀', pin: '0000', role: 'member', prefs: { pinnedBmIds: null, hiddenBmIds: [] } }
+        ],
+        bookmarks: [
+          {
+            id: 'bm-1',
+            name: 'KT세일즈 공식 사이트',
+            url: 'https://ktsales.co.kr',
+            category: '마케팅/웹',
+            icon: '🌐',
+            useFavicon: true,
+            owner: 'ALL',
+            desc: '하이오더·서빙로봇 공식 안내 및 상담 접수 페이지',
+            pinned: true
+          },
+          {
+            id: 'bm-2',
+            name: '주간 정책표 드라이브',
+            url: 'https://drive.google.com',
+            category: '영업/계약',
+            icon: '📊',
+            useFavicon: true,
+            owner: 'ALL',
+            desc: '영업팀 주간 통신 정책 및 프로모션 문서 모음',
+            pinned: true
+          },
+          {
+            id: 'bm-3',
+            name: '고객 견적/리드 시트',
+            url: 'https://sheets.google.com',
+            category: '영업/계약',
+            icon: '📝',
+            useFavicon: true,
+            owner: 'ALL',
+            desc: '상담 접수 현황 및 견적 산출 스프레드시트',
+            pinned: true
+          },
+          {
+            id: 'bm-4',
+            name: '팀 일정 캘린더',
+            url: 'https://calendar.google.com',
+            category: '업무지원',
+            icon: '📅',
+            useFavicon: true,
+            owner: 'ALL',
+            desc: '현장 미팅, 설치 일정 및 팀 공유 캘린더',
+            pinned: true
+          },
+          {
+            id: 'bm-5',
+            name: '네이버 스마트플레이스',
+            url: 'https://new.smartplace.naver.com',
+            category: '마케팅/웹',
+            icon: '📍',
+            useFavicon: true,
+            owner: 'ALL',
+            desc: '지역 검색 최적화 및 업체 정보 관리',
+            pinned: false
+          }
+        ],
+        snippets: [
+          {
+            id: 'sn-1',
+            title: '하이오더 인터넷 결합 안내 문구',
+            category: '요금/할인',
+            content: 'KT 하이오더 도입 시 KT 인터넷을 함께 결합하시면 월 11,000원 결합 할인 혜택을 받으실 수 있습니다.'
+          },
+          {
+            id: 'sn-2',
+            title: '상담 후 첫 인사 문자 템플릿',
+            category: '영업멘트',
+            content: '안녕하세요, KT세일즈 공식 대리점 ㈜네오커뮤니케이션즈입니다. 방금 통화드린 하이오더·서빙로봇 맞춤 견적서 전달드립니다. 확인 후 편하신 시간에 연락 부탁드립니다!'
+          },
+          {
+            id: 'sn-3',
+            title: '공식 홈페이지 안내 링크',
+            category: '기타',
+            content: '자세한 상품 안내 및 설치 사례는 공식 홈페이지(https://ktsales.co.kr)에서 확인하실 수 있습니다.'
+          }
+        ],
+        notices: [
+          {
+            id: 'nt-1',
+            title: '[필독] 팀 업무 포털 모바일 홈 화면 추가 방법',
+            tag: '필독',
+            author: '관리자',
+            date: '2026-11-15',
+            pinned: true,
+            body: '외부 미팅이나 이동 중에도 빠르게 접속할 수 있도록 스마트폰 브라우저 메뉴에서 [홈 화면에 추가]를 눌러 앱처럼 사용해 주세요.\n\n각 팀원 계정에 따라 나만의 북마크와 홈 화면을 따로 설정할 수 있습니다.'
+          },
+          {
+            id: 'nt-2',
+            title: '주간 영업 정책 및 상담 안내 체크사항',
+            tag: '정책',
+            author: '윤희님',
+            date: '2026-11-13',
+            pinned: true,
+            body: '1. 하이오더 인터넷 결합 할인 안내 시 월 할인 금액 기준으로 정확히 안내해 주세요.\n2. 신규 프랜차이즈 상담 건은 리드 시트에 당일 기록 부탁드립니다.\n3. 세부 정책표는 북마크의 드라이브 링크에서 최신 버전을 확인하세요.'
+          },
+          {
+            id: 'nt-3',
+            title: '현장 설치 후 사진 및 체크리스트 공유 요청',
+            tag: '일반',
+            author: '팀장 임훈',
+            date: '2026-11-10',
+            pinned: false,
+            body: '매장 설치 완료 후 기기 배치 및 네트워크 연결 상태 사진을 팀 공유 폴더에 업로드해 주시면 사후 관리 및 레퍼런스 자료로 활용하겠습니다.'
+          }
+        ]
+      };
+
+      let state = loadState();
+      let currentUserId = loadSavedUserId();
+      let selectedLoginUserId = null;
+      let readNoticeIds = loadJsonArray(READ_NOTICES_KEY);
+      let recentBmIds = loadJsonArray(RECENT_BM_KEY);
+      let activeTab = 'home';
+      let activeAdminSub = 'bm';
+      let adminUnlocked = false;
+      let bmCategoryFilter = '전체';
+      let snippetCategoryFilter = '전체';
+      let noticeFilter = '전체';
+      let showHiddenBm = false;
+      let searchQuery = '';
+      let currentModalNoticeId = null;
+      let confirmCallback = null;
+
+      function loadJsonArray(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          const arr = raw ? JSON.parse(raw) : [];
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+
+      function saveJsonArray(key, arr) {
+        try { localStorage.setItem(key, JSON.stringify(arr)); } catch (e) {}
+      }
+
+      function loadSavedUserId() {
+        try {
+          return sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY) || null;
+        } catch (e) { return null; }
+      }
+
+      function getCurrentUser() {
+        if (!state.users || state.users.length === 0) return null;
+        return state.users.find(u => u.id === currentUserId) || null;
+      }
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && Array.isArray(parsed.bookmarks) && Array.isArray(parsed.notices) && parsed.settings) {
+              if (!parsed.settings.scriptUrl) parsed.settings.scriptUrl = EMBEDDED_SCRIPT_URL;
+              if (!Array.isArray(parsed.users) || parsed.users.length === 0) parsed.users = JSON.parse(JSON.stringify(DEFAULT_DATA.users));
+              if (!Array.isArray(parsed.snippets)) parsed.snippets = JSON.parse(JSON.stringify(DEFAULT_DATA.snippets));
+              return parsed;
+            }
+          }
+        } catch (e) {}
+        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+      }
+
+      // Theme management
+      function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(saved ? saved === 'dark' : prefersDark);
+      }
+
+      function applyTheme(isDark) {
+        document.documentElement.classList.toggle('dark', isDark);
+        const iconEl = document.getElementById('theme-icon');
+        if (iconEl) iconEl.textContent = isDark ? '☀️' : '🌙';
+        try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch (e) {}
+      }
+
+      document.getElementById('btn-theme-toggle').addEventListener('click', () => {
+        const isDark = !document.documentElement.classList.contains('dark');
+        applyTheme(isDark);
+        showToast(isDark ? '다크 모드로 전환했어요.' : '라이트 모드로 전환했어요.');
+      });
+
+      const GAS_CODE = `function getOrCreateSheet(ss, name, headers) {
+  var sheet = ss.getSheetByName(name);
+  if (!sheet) {
+    sheet = ss.insertSheet(name);
+    sheet.appendRow(headers);
+  }
+  return sheet;
+}
+
+function readRows(sheet, keys) {
+  var data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return [];
+  var rows = [];
+  for (var i = 1; i < data.length; i++) {
+    var obj = {};
+    var empty = true;
+    for (var j = 0; j < keys.length; j++) {
+      var val = data[i][j];
+      if (val !== '' && val !== null && val !== undefined) empty = false;
+      if (keys[j] === 'pinned' || keys[j] === 'useFavicon') {
+        obj[keys[j]] = (val === true || String(val).toLowerCase() === 'true');
+      } else if (keys[j] === 'date' && val instanceof Date) {
+        obj[keys[j]] = Utilities.formatDate(val, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+      } else if (keys[j] === 'prefs') {
+        try { obj.prefs = val ? JSON.parse(String(val)) : { pinnedBmIds: null, hiddenBmIds: [] }; }
+        catch (err) { obj.prefs = { pinnedBmIds: null, hiddenBmIds: [] }; }
+      } else {
+        obj[keys[j]] = val !== undefined && val !== null ? String(val) : '';
+      }
+    }
+    if (!empty) rows.push(obj);
+  }
+  return rows;
+}
+
+function writeRows(sheet, headers, items, keys) {
+  sheet.clearContents();
+  var values = [headers];
+  for (var i = 0; i < items.length; i++) {
+    var row = [];
+    for (var j = 0; j < keys.length; j++) {
+      var v = items[i][keys[j]];
+      if (keys[j] === 'prefs') {
+        row.push(JSON.stringify(v || { pinnedBmIds: null, hiddenBmIds: [] }));
+      } else {
+        row.push(v !== undefined && v !== null ? v : '');
+      }
+    }
+    values.push(row);
+  }
+  sheet.getRange(1, 1, values.length, headers.length).setValues(values);
+}
+
+function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sSheet = getOrCreateSheet(ss, 'Settings', ['key', 'value']);
+  var bSheet = getOrCreateSheet(ss, 'Bookmarks', ['id', 'name', 'url', 'category', 'icon', 'desc', 'pinned', 'owner', 'useFavicon']);
+  var nSheet = getOrCreateSheet(ss, 'Notices', ['id', 'title', 'tag', 'author', 'date', 'pinned', 'body']);
+  var snSheet = getOrCreateSheet(ss, 'Snippets', ['id', 'title', 'category', 'content']);
+  var uSheet = getOrCreateSheet(ss, 'Users', ['id', 'name', 'title', 'avatar', 'pin', 'role', 'prefs']);
+
+  var sRows = readRows(sSheet, ['key', 'value']);
+  var settings = {};
+  for (var i = 0; i < sRows.length; i++) {
+    settings[sRows[i].key] = sRows[i].value;
+  }
+
+  var payload = {
+    ok: true,
+    settings: settings,
+    bookmarks: readRows(bSheet, ['id', 'name', 'url', 'category', 'icon', 'desc', 'pinned', 'owner', 'useFavicon']),
+    notices: readRows(nSheet, ['id', 'title', 'tag', 'author', 'date', 'pinned', 'body']),
+    snippets: readRows(snSheet, ['id', 'title', 'category', 'content']),
+    users: readRows(uSheet, ['id', 'name', 'title', 'avatar', 'pin', 'role', 'prefs'])
+  };
+
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var body = JSON.parse(e.postData.contents);
+
+  if (body.settings) {
+    var sSheet = getOrCreateSheet(ss, 'Settings', ['key', 'value']);
+    var sItems = [
+      { key: 'title', value: body.settings.title || '' },
+      { key: 'subtitle', value: body.settings.subtitle || '' },
+      { key: 'pin', value: body.settings.pin || '' }
+    ];
+    writeRows(sSheet, ['key', 'value'], sItems, ['key', 'value']);
+  }
+
+  if (Array.isArray(body.bookmarks)) {
+    var bSheet = getOrCreateSheet(ss, 'Bookmarks', ['id', 'name', 'url', 'category', 'icon', 'desc', 'pinned', 'owner', 'useFavicon']);
+    writeRows(bSheet, ['id', 'name', 'url', 'category', 'icon', 'desc', 'pinned', 'owner', 'useFavicon'], body.bookmarks, ['id', 'name', 'url', 'category', 'icon', 'desc', 'pinned', 'owner', 'useFavicon']);
+  }
+
+  if (Array.isArray(body.notices)) {
+    var nSheet = getOrCreateSheet(ss, 'Notices', ['id', 'title', 'tag', 'author', 'date', 'pinned', 'body']);
+    writeRows(nSheet, ['id', 'title', 'tag', 'author', 'date', 'pinned', 'body'], body.notices, ['id', 'title', 'tag', 'author', 'date', 'pinned', 'body']);
+  }
+
+  if (Array.isArray(body.snippets)) {
+    var snSheet = getOrCreateSheet(ss, 'Snippets', ['id', 'title', 'category', 'content']);
+    writeRows(snSheet, ['id', 'title', 'category', 'content'], body.snippets, ['id', 'title', 'category', 'content']);
+  }
+
+  if (Array.isArray(body.users)) {
+    var uSheet = getOrCreateSheet(ss, 'Users', ['id', 'name', 'title', 'avatar', 'pin', 'role', 'prefs']);
+    writeRows(uSheet, ['id', 'name', 'title', 'avatar', 'pin', 'role', 'prefs'], body.users, ['id', 'name', 'title', 'avatar', 'pin', 'role', 'prefs']);
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+      function updateSyncUI(status, text) {
+        const badge = document.getElementById('sync-badge');
+        const refreshBtn = document.getElementById('btn-header-sync');
+        const svg = document.getElementById('sync-icon-svg');
+        const hasUrl = Boolean(state.settings && state.settings.scriptUrl && state.settings.scriptUrl.trim());
+        refreshBtn.classList.toggle('hidden', !hasUrl);
+
+        if (svg) svg.classList.toggle('animate-spin-sync', status === 'syncing');
+
+        if (!hasUrl) {
+          badge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold tds-segment tds-text-4 shrink-0';
+          badge.textContent = '로컬 모드';
+          return;
+        }
+        if (status === 'syncing') {
+          badge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#3182f6]/15 text-[#3182f6] shrink-0';
+          badge.textContent = text || '동기화 중...';
+        } else if (status === 'error') {
+          badge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#f04452]/15 text-[#f04452] shrink-0';
+          badge.textContent = text || '오프라인 캐시';
+        } else {
+          badge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#00a859]/15 text-[#00a859] shrink-0';
+          badge.textContent = text || '시트 연동됨';
+        }
+      }
+
+      async function syncFromSheet(showFeedback) {
+        const url = (state.settings && state.settings.scriptUrl || '').trim();
+        if (!url) return false;
+        updateSyncUI('syncing', '불러오는 중...');
+        try {
+          const res = await fetch(url, { method: 'GET' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (data && data.ok) {
+            if (data.settings && (data.settings.title || data.settings.subtitle)) {
+              state.settings.title = data.settings.title || state.settings.title;
+              state.settings.subtitle = data.settings.subtitle || state.settings.subtitle;
+              if (data.settings.pin !== undefined && String(data.settings.pin).trim() !== '') {
+                state.settings.pin = String(data.settings.pin);
+              }
+            }
+            if (Array.isArray(data.bookmarks) && data.bookmarks.length > 0) {
+              state.bookmarks = data.bookmarks.map(b => ({
+                ...b,
+                owner: b.owner || 'ALL',
+                useFavicon: b.useFavicon !== undefined ? Boolean(b.useFavicon) : true
+              }));
+            }
+            if (Array.isArray(data.notices) && data.notices.length > 0) {
+              state.notices = data.notices.map(n => ({ ...n, date: formatDateStr(n.date) }));
+            }
+            if (Array.isArray(data.snippets) && data.snippets.length > 0) {
+              state.snippets = data.snippets;
+            }
+            if (Array.isArray(data.users) && data.users.length > 0) {
+              state.users = data.users;
+            }
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+            updateSyncUI('ok', '시트 연동됨');
+            renderLoginScreen();
+            renderAll();
+            if (showFeedback) showToast('Google Sheets에서 최신 데이터를 불러왔어요.');
+            return true;
+          }
+          throw new Error('Invalid response');
+        } catch (err) {
+          updateSyncUI('error', '오프라인 캐시');
+          if (showFeedback) showToast('시트 연결에 실패해 저장된 데이터를 표시합니다.');
+          return false;
+        }
+      }
+
+      async function syncToSheet(showFeedback) {
+        const url = (state.settings && state.settings.scriptUrl || '').trim();
+        if (!url) return false;
+        updateSyncUI('syncing', '저장 중...');
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              settings: {
+                title: state.settings.title || '',
+                subtitle: state.settings.subtitle || '',
+                pin: state.settings.pin || ''
+              },
+              bookmarks: state.bookmarks,
+              notices: state.notices,
+              snippets: state.snippets,
+              users: state.users
+            })
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (data && data.ok) {
+            updateSyncUI('ok', '시트 연동됨');
+            if (showFeedback) showToast('Google Sheets에 안전하게 저장되었어요.');
+            return true;
+          }
+          throw new Error('Save failed');
+        } catch (err) {
+          updateSyncUI('error', '저장 오류');
+          if (showFeedback) showToast('시트 저장에 실패했어요. URL과 권한을 확인해 주세요.');
+          return false;
+        }
+      }
+
+      function saveState(skipRemote) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+        if (!skipRemote && state.settings && state.settings.scriptUrl && state.settings.scriptUrl.trim()) {
+          syncToSheet(false);
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function normalizeUrl(url) {
+        const trimmed = String(url || '').trim();
+        if (!trimmed) return '#';
+        if (/^https?:\/\//i.test(trimmed)) return trimmed;
+        return 'https://' + trimmed;
+      }
+
+      function getFaviconUrl(url) {
+        try {
+          const u = new URL(normalizeUrl(url));
+          return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(u.hostname)}&sz=64`;
+        } catch (e) { return ''; }
+      }
+
+      function renderBookmarkIconHtml(b, sizeClass) {
+        const fallback = `<span class="tossface">${escapeHtml(b.icon || '🔗')}</span>`;
+        if (b.useFavicon === false) {
+          return `<span class="tossface ${sizeClass} rounded-[16px] tds-subcard flex items-center justify-center text-2xl shrink-0">${escapeHtml(b.icon || '🔗')}</span>`;
+        }
+        const fav = getFaviconUrl(b.url);
+        if (!fav) {
+          return `<span class="tossface ${sizeClass} rounded-[16px] tds-subcard flex items-center justify-center text-2xl shrink-0">${escapeHtml(b.icon || '🔗')}</span>`;
+        }
+        return `<span class="${sizeClass} rounded-[16px] tds-subcard flex items-center justify-center shrink-0 overflow-hidden p-2">
+          <img src="${escapeHtml(fav)}" alt="" class="w-7 h-7 object-contain rounded-md" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
+          <span class="tossface text-2xl hidden">${escapeHtml(b.icon || '🔗')}</span>
+        </span>`;
+      }
+
+      function formatDateStr(val) {
+        const s = String(val || '').trim();
+        if (!s) return '';
+        if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+        const d = new Date(s);
+        if (!isNaN(d.getTime())) {
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          return `${y}-${m}-${day}`;
+        }
+        return s;
+      }
+
+      function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.remove('hidden');
+        clearTimeout(el._timer);
+        el._timer = setTimeout(() => el.classList.add('hidden'), 2200);
+      }
+
+      function copyText(text, successMsg) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast(successMsg || '복사되었어요.');
+          }).catch(() => fallbackCopy(text, successMsg));
+        } else {
+          fallbackCopy(text, successMsg);
+        }
+      }
+
+      function fallbackCopy(text, successMsg) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast(successMsg || '복사되었어요.');
+        } catch (e) {
+          showToast('복사에 실패했어요.');
+        }
+        document.body.removeChild(ta);
+      }
+
+      function openConfirm(title, message, onOk) {
+        document.getElementById('confirm-title').textContent = title;
+        document.getElementById('confirm-message').textContent = message;
+        confirmCallback = onOk;
+        document.getElementById('confirm-modal').classList.remove('hidden');
+      }
+
+      function closeConfirm() {
+        document.getElementById('confirm-modal').classList.add('hidden');
+        confirmCallback = null;
+      }
+
+      function getTagBadgeClass(tag) {
+        if (tag === '필독') return 'bg-[#f04452]/15 text-[#f04452]';
+        if (tag === '정책') return 'bg-[#3182f6]/15 text-[#3182f6]';
+        return 'tds-segment tds-text-3';
+      }
+
+      // Personal Bookmark Helpers (per-user view!)
+      function getUserPrefs() {
+        const user = getCurrentUser();
+        if (!user) return { pinnedBmIds: null, hiddenBmIds: [] };
+        if (!user.prefs) user.prefs = { pinnedBmIds: null, hiddenBmIds: [] };
+        if (!Array.isArray(user.prefs.hiddenBmIds)) user.prefs.hiddenBmIds = [];
+        return user.prefs;
+      }
+
+      function isBmPinnedForUser(bm) {
+        const prefs = getUserPrefs();
+        if (Array.isArray(prefs.pinnedBmIds)) {
+          return prefs.pinnedBmIds.includes(bm.id);
+        }
+        return Boolean(bm.pinned);
+      }
+
+      function isBmHiddenForUser(bm) {
+        const prefs = getUserPrefs();
+        return prefs.hiddenBmIds.includes(bm.id);
+      }
+
+      function getVisibleBookmarksForUser() {
+        const user = getCurrentUser();
+        const uid = user ? user.id : 'NONE';
+        return state.bookmarks.filter(b => {
+          const owner = b.owner || 'ALL';
+          return owner === 'ALL' || owner === uid;
+        });
+      }
+
+      function toggleUserBmPin(bmId) {
+        const user = getCurrentUser();
+        if (!user) return;
+        const prefs = getUserPrefs();
+        if (!Array.isArray(prefs.pinnedBmIds)) {
+          prefs.pinnedBmIds = getVisibleBookmarksForUser().filter(b => b.pinned).map(b => b.id);
+        }
+        if (prefs.pinnedBmIds.includes(bmId)) {
+          prefs.pinnedBmIds = prefs.pinnedBmIds.filter(id => id !== bmId);
+          showToast('내 홈 화면 고정을 해제했어요.');
+        } else {
+          prefs.pinnedBmIds.push(bmId);
+          showToast('내 홈 화면에 고정했어요.');
+        }
+        saveState();
+        renderAll();
+      }
+
+      function toggleUserBmHide(bmId) {
+        const user = getCurrentUser();
+        if (!user) return;
+        const prefs = getUserPrefs();
+        if (prefs.hiddenBmIds.includes(bmId)) {
+          prefs.hiddenBmIds = prefs.hiddenBmIds.filter(id => id !== bmId);
+          showToast('북마크를 다시 표시합니다.');
+        } else {
+          prefs.hiddenBmIds.push(bmId);
+          showToast('내 화면에서 이 북마크를 숨겼어요.');
+        }
+        saveState();
+        renderAll();
+      }
+
+      // Login Screen Logic
+      function renderLoginScreen() {
+        const user = getCurrentUser();
+        const loginScreen = document.getElementById('login-screen');
+        document.getElementById('login-portal-title').textContent = state.settings.title || 'AX팀 업무 포털';
+
+        if (user) {
+          loginScreen.classList.add('hidden');
+          adminUnlocked = user.role === 'admin';
+          return;
+        }
+
+        loginScreen.classList.remove('hidden');
+        const listEl = document.getElementById('login-user-list');
+        listEl.innerHTML = state.users.map(u => {
+          const selected = selectedLoginUserId === u.id;
+          return `
+          <button type="button" data-select-login-user="${escapeHtml(u.id)}" class="tds-press p-3.5 rounded-[18px] text-center space-y-1.5 border-2 transition ${selected ? 'border-[#3182f6] bg-[#3182f6]/10' : 'border-transparent tds-subcard'}">
+            <span class="tossface text-2xl block">${escapeHtml(u.avatar || '👤')}</span>
+            <p class="text-[14px] font-bold tds-text-1 truncate">${escapeHtml(u.name)}</p>
+            <p class="text-[11px] font-medium tds-text-5 truncate">${escapeHtml(u.title || '팀원')}</p>
+          </button>`;
+        }).join('');
+      }
+
+      document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const target = state.users.find(u => u.id === selectedLoginUserId);
+        if (!target) return;
+        const pin = document.getElementById('login-pin-input').value.trim();
+        if (pin !== String(target.pin)) {
+          showToast('비밀번호(PIN)가 일치하지 않아요.');
+          return;
+        }
+        currentUserId = target.id;
+        adminUnlocked = target.role === 'admin';
+        const remember = document.getElementById('login-remember').checked;
+        try {
+          sessionStorage.setItem(CURRENT_USER_KEY, target.id);
+          if (remember) localStorage.setItem(CURRENT_USER_KEY, target.id);
+          else localStorage.removeItem(CURRENT_USER_KEY);
+        } catch (err) {}
+        document.getElementById('login-pin-input').value = '';
+        document.getElementById('login-form').classList.add('hidden');
+        selectedLoginUserId = null;
+        renderLoginScreen();
+        setTab('home');
+        showToast(`${target.name}님, 환영합니다!`);
+      });
+
+      document.getElementById('btn-switch-user').addEventListener('click', () => {
+        currentUserId = null;
+        selectedLoginUserId = null;
+        adminUnlocked = false;
+        try {
+          sessionStorage.removeItem(CURRENT_USER_KEY);
+          localStorage.removeItem(CURRENT_USER_KEY);
+        } catch (e) {}
+        document.getElementById('login-form').classList.add('hidden');
+        renderLoginScreen();
+      });
+
+      function recordBookmarkVisit(bmId) {
+        if (!bmId) return;
+        recentBmIds = [bmId, ...recentBmIds.filter(id => id !== bmId)].slice(0, 6);
+        saveJsonArray(RECENT_BM_KEY, recentBmIds);
+        if (activeTab === 'home') renderHome();
+      }
+
+      function markNoticeRead(ntId) {
+        if (!ntId) return;
+        if (!readNoticeIds.includes(ntId)) {
+          readNoticeIds.push(ntId);
+          saveJsonArray(READ_NOTICES_KEY, readNoticeIds);
+        }
+      }
+
+      function setTab(tab) {
+        activeTab = tab;
+        ['home', 'bookmarks', 'snippets', 'notices', 'admin'].forEach(t => {
+          document.getElementById('view-' + t).classList.toggle('hidden', t !== tab);
+        });
+        document.getElementById('search-wrapper').classList.toggle('hidden', tab === 'admin');
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          const isActive = btn.dataset.tab === tab;
+          btn.className = 'nav-btn flex-1 py-2 rounded-[12px] text-[14px] font-semibold transition ' +
+            (isActive ? 'tds-card tds-text-1 font-bold' : 'tds-text-4 hover:text-[#3182f6]');
+        });
+
+        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+          const isActive = btn.dataset.tab === tab;
+          btn.className = 'mobile-nav-btn tds-press flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-semibold transition ' +
+            (isActive ? 'text-[#3182f6] font-bold' : 'tds-text-5');
+        });
+
+        if (tab === 'admin') {
+          checkAdminLock();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        renderAll();
+      }
+
+      function setAdminSub(sub) {
+        activeAdminSub = sub;
+        ['bm', 'notice', 'snippet', 'users', 'settings'].forEach(s => {
+          document.getElementById('admin-panel-' + s).classList.toggle('hidden', s !== sub);
+        });
+        document.querySelectorAll('.admin-sub-btn').forEach(btn => {
+          const isActive = btn.dataset.adminSub === sub;
+          btn.className = 'admin-sub-btn flex-1 min-w-[84px] py-2.5 px-3 rounded-[14px] text-[13px] sm:text-[14px] font-bold transition ' +
+            (isActive ? 'tds-card tds-text-1' : 'tds-text-4');
+        });
+      }
+
+      function checkAdminLock() {
+        const user = getCurrentUser();
+        const isAdminUser = user && user.role === 'admin';
+        const hasPin = Boolean(state.settings.pin && String(state.settings.pin).trim().length > 0);
+        const locked = !isAdminUser && hasPin && !adminUnlocked;
+        document.getElementById('admin-lock-screen').classList.toggle('hidden', !locked);
+        document.getElementById('admin-content').classList.toggle('hidden', locked);
+      }
+
+      function matchesQuery(text) {
+        if (!searchQuery) return true;
+        return String(text || '').toLowerCase().includes(searchQuery.toLowerCase());
+      }
+
+      function renderHeader() {
+        document.getElementById('portal-title').textContent = state.settings.title || 'AX팀 업무 포털';
+        document.getElementById('portal-subtitle').textContent = state.settings.subtitle || '';
+        const user = getCurrentUser();
+        if (user) {
+          document.getElementById('header-user-avatar').textContent = user.avatar || '👤';
+          document.getElementById('header-user-name').textContent = user.name;
+        }
+      }
+
+      function renderGreetingAndStats() {
+        const user = getCurrentUser();
+        const userName = user ? user.name : '팀원';
+        const now = new Date();
+        const days = ['일', '월', '화', '수', '목', '금', '토'];
+        const dateStr = `${now.getMonth() + 1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+        const hr = now.getHours();
+        let greet = `${userName}님, 오늘도 기분 좋은 하루 보내세요!`;
+        if (hr < 11) greet = `${userName}님, 좋은 아침이에요! ☀️`;
+        else if (hr < 14) greet = `${userName}님, 오후 업무도 화이팅! 🍱`;
+        else if (hr < 18) greet = `${userName}님, 미팅과 상담 일정 응원해요 💪`;
+        else greet = `${userName}님, 오늘 하루도 고생 많으셨어요 🌙`;
+
+        document.getElementById('greeting-date').textContent = `${dateStr} · ${user ? user.title : ''}`;
+        document.getElementById('greeting-title').textContent = greet;
+        document.getElementById('home-bm-heading').textContent = `${userName}님의 고정 업무 사이트`;
+
+        const visibleBms = getVisibleBookmarksForUser().filter(b => !isBmHiddenForUser(b));
+        document.getElementById('stat-bm-count').textContent = `${visibleBms.length}개`;
+
+        const unreadCount = state.notices.filter(n => !readNoticeIds.includes(n.id)).length;
+        const unreadEl = document.getElementById('stat-unread-count');
+        unreadEl.textContent = unreadCount > 0 ? `${unreadCount}건` : '모두 읽음';
+        unreadEl.className = 'text-[18px] font-bold mt-0.5 ' + (unreadCount > 0 ? 'text-[#f04452]' : 'text-[#00a859]');
+      }
+
+      function renderHome() {
+        renderGreetingAndStats();
+
+        const visibleBms = getVisibleBookmarksForUser().filter(b => !isBmHiddenForUser(b));
+
+        // Recently visited
+        const recentBms = recentBmIds
+          .map(id => visibleBms.find(b => b.id === id))
+          .filter(Boolean);
+        const recentCard = document.getElementById('recent-visits-card');
+        const recentList = document.getElementById('recent-visits-list');
+        if (recentBms.length === 0 || searchQuery) {
+          recentCard.classList.add('hidden');
+        } else {
+          recentCard.classList.remove('hidden');
+          recentList.innerHTML = recentBms.map(b => `
+            <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press tds-subcard px-3.5 py-2 rounded-full flex items-center gap-2 shrink-0">
+              <span class="tossface text-sm">${escapeHtml(b.icon || '🔗')}</span>
+              <span class="text-[13px] font-bold tds-text-2">${escapeHtml(b.name)}</span>
+            </a>
+          `).join('');
+        }
+
+        // Pinned notices
+        const pinnedNotices = state.notices.filter(n => n.pinned && (matchesQuery(n.title) || matchesQuery(n.body) || matchesQuery(n.tag)));
+        const pinnedEl = document.getElementById('home-pinned-notices');
+        if (pinnedNotices.length === 0) {
+          pinnedEl.innerHTML = '<div class="tds-subcard p-5 text-[13px] font-medium tds-text-5 text-center">고정된 공지사항이 없어요.</div>';
+        } else {
+          pinnedEl.innerHTML = pinnedNotices.map(n => {
+            const isUnread = !readNoticeIds.includes(n.id);
+            return `
+            <button type="button" data-open-notice="${escapeHtml(n.id)}" class="tds-press tds-subcard w-full text-left p-4 flex items-center justify-between gap-3">
+              <div class="min-w-0 space-y-1">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-[7px] text-[11px] font-bold ${getTagBadgeClass(n.tag)}">${escapeHtml(n.tag)}</span>
+                  <span class="text-[12px] font-medium tds-text-5">${escapeHtml(n.date)}</span>
+                  ${isUnread ? '<span class="inline-flex items-center gap-1 text-[11px] font-bold text-[#3182f6]"><span class="w-1.5 h-1.5 rounded-full bg-[#3182f6]"></span>NEW</span>' : ''}
+                </div>
+                <p class="text-[15px] font-bold tds-text-1 truncate">${escapeHtml(n.title)}</p>
+                <p class="text-[13px] tds-text-4 line-clamp-2 leading-relaxed">${escapeHtml(n.body)}</p>
+              </div>
+              <svg class="w-5 h-5 tds-text-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>`;
+          }).join('');
+        }
+
+        // Personal Quick bookmarks
+        const quickBms = visibleBms.filter(b => isBmPinnedForUser(b) && (matchesQuery(b.name) || matchesQuery(b.desc) || matchesQuery(b.url) || matchesQuery(b.category)));
+        const quickEl = document.getElementById('home-quick-bookmarks');
+        if (quickBms.length === 0) {
+          quickEl.innerHTML = '<div class="col-span-full tds-subcard p-5 text-[13px] font-medium tds-text-5 text-center">고정된 북마크가 없어요. 북마크 탭에서 ★ 별표를 눌러 고정해 보세요!</div>';
+        } else {
+          quickEl.innerHTML = quickBms.map(b => `
+            <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press tds-hover-lift tds-subcard p-3.5 flex items-center gap-3.5 group">
+              ${renderBookmarkIconHtml(b, 'w-12 h-12')}
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-1.5">
+                  <p class="text-[15px] font-bold tds-text-1 group-hover:text-[#3182f6] truncate">${escapeHtml(b.name)}</p>
+                  ${b.owner && b.owner !== 'ALL' ? '<span class="text-[10px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-1.5 py-0.5 rounded">내 링크</span>' : ''}
+                </div>
+                <p class="text-[12px] font-medium tds-text-4 truncate mt-0.5">${escapeHtml(b.desc || b.category)}</p>
+              </div>
+              <svg class="w-4 h-4 tds-text-5 group-hover:text-[#3182f6] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </a>
+          `).join('');
+        }
+
+        // Recent notices
+        const recent = state.notices
+          .filter(n => matchesQuery(n.title) || matchesQuery(n.body) || matchesQuery(n.tag))
+          .slice(0, 4);
+        const recentEl = document.getElementById('home-recent-notices');
+        if (recent.length === 0) {
+          recentEl.innerHTML = '<div class="py-5 text-[13px] font-medium tds-text-5 text-center">표시할 공지사항이 없어요.</div>';
+        } else {
+          recentEl.innerHTML = recent.map(n => {
+            const isUnread = !readNoticeIds.includes(n.id);
+            return `
+            <button type="button" data-open-notice="${escapeHtml(n.id)}" class="tds-press w-full text-left py-3.5 px-2 rounded-[14px] flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-2 py-0.5 rounded-[7px] text-[11px] font-bold shrink-0 ${getTagBadgeClass(n.tag)}">${escapeHtml(n.tag)}</span>
+                <span class="text-[15px] font-semibold tds-text-1 truncate">${escapeHtml(n.title)}</span>
+                ${isUnread ? '<span class="w-2 h-2 rounded-full bg-[#3182f6] shrink-0"></span>' : ''}
+              </div>
+              <span class="text-[12px] font-medium tds-text-5 shrink-0">${escapeHtml(n.date)}</span>
+            </button>`;
+          }).join('');
+        }
+      }
+
+      function renderBookmarks() {
+        const user = getCurrentUser();
+        const visibleBms = getVisibleBookmarksForUser();
+        const categories = ['전체', ...Array.from(new Set(visibleBms.map(b => b.category || '기타')))];
+        if (!categories.includes(bmCategoryFilter)) bmCategoryFilter = '전체';
+
+        document.getElementById('bookmark-categories').innerHTML = categories.map(cat => `
+          <button type="button" data-bm-cat="${escapeHtml(cat)}" class="tds-press px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap ${bmCategoryFilter === cat ? 'bg-[#3182f6] text-white' : 'tds-subcard tds-text-3'}">${escapeHtml(cat)}</button>
+        `).join('');
+
+        const filtered = visibleBms.filter(b => {
+          const hidden = isBmHiddenForUser(b);
+          if (!showHiddenBm && hidden) return false;
+          const catMatch = bmCategoryFilter === '전체' || b.category === bmCategoryFilter;
+          const qMatch = matchesQuery(b.name) || matchesQuery(b.desc) || matchesQuery(b.url) || matchesQuery(b.category);
+          return catMatch && qMatch;
+        });
+
+        document.getElementById('bookmark-count').textContent = `${filtered.length}`;
+        const listEl = document.getElementById('bookmarks-list');
+        if (filtered.length === 0) {
+          listEl.innerHTML = '<div class="col-span-full tds-card p-10 text-center text-[14px] font-medium tds-text-5">조건에 맞는 북마크가 없어요.</div>';
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(b => {
+          const pinned = isBmPinnedForUser(b);
+          const hidden = isBmHiddenForUser(b);
+          const isMine = user && b.owner === user.id;
+          return `
+          <div class="tds-card tds-hover-lift p-5 flex flex-col justify-between gap-3.5 ${hidden ? 'opacity-60' : ''}">
+            <div class="flex items-start justify-between gap-2">
+              <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 min-w-0 group flex-1">
+                ${renderBookmarkIconHtml(b, 'w-12 h-12')}
+                <div class="min-w-0">
+                  <p class="text-[16px] font-bold tds-text-1 group-hover:text-[#3182f6] truncate">${escapeHtml(b.name)}</p>
+                  <div class="flex items-center gap-1.5 mt-1">
+                    <span class="inline-block text-[11px] font-bold tds-text-4 tds-subcard px-2 py-0.5 rounded-[6px]">${escapeHtml(b.category)}</span>
+                    ${isMine ? '<span class="inline-block text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-2 py-0.5 rounded-[6px]">내 북마크</span>' : ''}
+                  </div>
+                </div>
+              </a>
+              <div class="flex items-center gap-1 shrink-0">
+                <button type="button" data-toggle-bm-pin="${escapeHtml(b.id)}" title="내 홈 고정 토글" class="tds-press w-9 h-9 rounded-full text-base flex items-center justify-center ${pinned ? 'text-[#f59f00] bg-[#f59f00]/15' : 'tds-text-5 tds-subcard'}">★</button>
+                <button type="button" data-toggle-bm-hide="${escapeHtml(b.id)}" title="${hidden ? '다시 보이기' : '내 화면에서 숨기기'}" class="tds-press w-9 h-9 rounded-full text-xs font-bold flex items-center justify-center tds-text-5 tds-subcard">${hidden ? '👁️' : '✕'}</button>
+              </div>
+            </div>
+            <p class="text-[13px] tds-text-3 line-clamp-2 leading-relaxed">${escapeHtml(b.desc || b.url)}</p>
+            <div class="flex items-center justify-between gap-2 pt-3 border-t tds-divider">
+              <div class="flex items-center gap-1.5">
+                <button type="button" data-copy-url="${escapeHtml(normalizeUrl(b.url))}" class="tds-press text-[13px] font-semibold tds-text-3 py-1.5 px-3 rounded-[10px] tds-subcard">주소 복사</button>
+                ${isMine ? `<button type="button" data-delete-personal-bm="${escapeHtml(b.id)}" class="tds-press text-[12px] font-bold text-[#f04452] py-1.5 px-2.5 rounded-[10px] bg-[#f04452]/12">삭제</button>` : ''}
+              </div>
+              <a href="${escapeHtml(normalizeUrl(b.url))}" data-visit-bm="${escapeHtml(b.id)}" target="_blank" rel="noopener noreferrer" class="tds-press text-[13px] font-bold text-[#3182f6] py-1.5 px-3.5 rounded-[10px] bg-[#3182f6]/12 hover:bg-[#3182f6]/20">바로가기 &rarr;</a>
+            </div>
+          </div>`;
+        }).join('');
+      }
+
+      function renderSnippets() {
+        const categories = ['전체', ...Array.from(new Set(state.snippets.map(s => s.category || '기타')))];
+        if (!categories.includes(snippetCategoryFilter)) snippetCategoryFilter = '전체';
+
+        document.getElementById('snippet-categories').innerHTML = categories.map(cat => `
+          <button type="button" data-sn-cat="${escapeHtml(cat)}" class="tds-press px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap ${snippetCategoryFilter === cat ? 'bg-[#3182f6] text-white' : 'tds-subcard tds-text-3'}">${escapeHtml(cat)}</button>
+        `).join('');
+
+        const filtered = state.snippets.filter(s => {
+          const catMatch = snippetCategoryFilter === '전체' || s.category === snippetCategoryFilter;
+          const qMatch = matchesQuery(s.title) || matchesQuery(s.content) || matchesQuery(s.category);
+          return catMatch && qMatch;
+        });
+
+        document.getElementById('snippet-count').textContent = `${filtered.length}`;
+        const listEl = document.getElementById('snippets-list');
+        if (filtered.length === 0) {
+          listEl.innerHTML = '<div class="col-span-full tds-card p-10 text-center text-[14px] font-medium tds-text-5">등록된 상용구가 없어요.</div>';
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(s => `
+          <div class="tds-card p-5 flex flex-col justify-between gap-3.5">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-2.5 py-0.5 rounded-[7px]">${escapeHtml(s.category || '기타')}</span>
+              </div>
+              <h3 class="text-[16px] font-bold tds-text-1">${escapeHtml(s.title)}</h3>
+              <p class="text-[13px] tds-text-3 tds-subcard p-3.5 rounded-[14px] whitespace-pre-wrap leading-relaxed">${escapeHtml(s.content)}</p>
+            </div>
+            <button type="button" data-copy-snippet="${escapeHtml(s.id)}" class="tds-press w-full py-2.5 bg-[#3182f6] hover:bg-[#1b64da] text-white text-[14px] font-bold rounded-[14px]">원탭 복사하기</button>
+          </div>
+        `).join('');
+      }
+
+      function renderNotices() {
+        const filters = ['전체', '필독', '정책', '일반'];
+        document.getElementById('notice-filters').innerHTML = filters.map(f => `
+          <button type="button" data-notice-filter="${escapeHtml(f)}" class="tds-press px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap ${noticeFilter === f ? 'bg-[#3182f6] text-white' : 'tds-subcard tds-text-3'}">${escapeHtml(f)}</button>
+        `).join('');
+
+        const filtered = state.notices.filter(n => {
+          const fMatch = noticeFilter === '전체' || n.tag === noticeFilter;
+          const qMatch = matchesQuery(n.title) || matchesQuery(n.body) || matchesQuery(n.author);
+          return fMatch && qMatch;
+        });
+
+        document.getElementById('notice-count').textContent = `${filtered.length}`;
+        const listEl = document.getElementById('notices-list');
+        if (filtered.length === 0) {
+          listEl.innerHTML = '<div class="tds-card p-10 text-center text-[14px] font-medium tds-text-5">등록된 공지사항이 없어요.</div>';
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(n => {
+          const isUnread = !readNoticeIds.includes(n.id);
+          return `
+          <button type="button" data-open-notice="${escapeHtml(n.id)}" class="tds-card tds-press tds-hover-lift w-full text-left p-5 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-[7px] text-[11px] font-bold ${getTagBadgeClass(n.tag)}">${escapeHtml(n.tag)}</span>
+                ${n.pinned ? '<span class="text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-2 py-0.5 rounded-[7px]">상단고정</span>' : ''}
+                ${isUnread ? '<span class="inline-flex items-center gap-1 text-[11px] font-bold text-[#3182f6]"><span class="w-1.5 h-1.5 rounded-full bg-[#3182f6]"></span>안 읽음</span>' : ''}
+              </div>
+              <span class="text-[12px] font-medium tds-text-5">${escapeHtml(n.date)} · ${escapeHtml(n.author || '팀')}</span>
+            </div>
+            <h3 class="text-[16px] font-bold tds-text-1">${escapeHtml(n.title)}</h3>
+            <p class="text-[14px] tds-text-3 line-clamp-3 leading-relaxed">${escapeHtml(n.body)}</p>
+          </button>`;
+        }).join('');
+      }
+
+      function renderAdmin() {
+        // Owner dropdown in Bookmark Admin
+        const ownerSel = document.getElementById('bm-owner');
+        const currentOwnerVal = ownerSel.value || 'ALL';
+        ownerSel.innerHTML = '<option value="ALL">팀 공통 (전체)</option>' +
+          state.users.map(u => `<option value="${escapeHtml(u.id)}">${escapeHtml(u.name)} 전용</option>`).join('');
+        ownerSel.value = currentOwnerVal;
+
+        const bmList = document.getElementById('admin-bm-list');
+        if (state.bookmarks.length === 0) {
+          bmList.innerHTML = '<p class="py-5 text-[13px] tds-text-5 text-center">등록된 북마크가 없어요.</p>';
+        } else {
+          bmList.innerHTML = state.bookmarks.map(b => {
+            const ownerUser = b.owner && b.owner !== 'ALL' ? state.users.find(u => u.id === b.owner) : null;
+            const ownerLabel = ownerUser ? ownerUser.name + ' 전용' : '팀 공통';
+            return `
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                ${renderBookmarkIconHtml(b, 'w-10 h-10')}
+                <div class="min-w-0">
+                  <p class="text-[15px] font-bold tds-text-1 truncate">${escapeHtml(b.name)} <span class="text-[11px] font-bold text-[#3182f6] bg-[#3182f6]/12 px-2 py-0.5 rounded-md ml-1">${escapeHtml(ownerLabel)}</span></p>
+                  <p class="text-[12px] tds-text-5 truncate mt-0.5">${escapeHtml(b.category)} · ${escapeHtml(b.url)}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" data-edit-bm="${escapeHtml(b.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold tds-text-3 tds-subcard rounded-[10px]">수정</button>
+                <button type="button" data-delete-bm="${escapeHtml(b.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold text-[#f04452] bg-[#f04452]/15 rounded-[10px]">삭제</button>
+              </div>
+            </div>`;
+          }).join('');
+        }
+
+        const ntList = document.getElementById('admin-notice-list');
+        if (state.notices.length === 0) {
+          ntList.innerHTML = '<p class="py-5 text-[13px] tds-text-5 text-center">등록된 공지사항이 없어요.</p>';
+        } else {
+          ntList.innerHTML = state.notices.map(n => `
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-[6px] text-[11px] font-bold ${getTagBadgeClass(n.tag)}">${escapeHtml(n.tag)}</span>
+                  <p class="text-[15px] font-bold tds-text-1 truncate">${escapeHtml(n.title)}</p>
+                </div>
+                <p class="text-[12px] tds-text-5 mt-1">${escapeHtml(n.date)} · ${escapeHtml(n.author || '팀')} ${n.pinned ? '· 상단고정' : ''}</p>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" data-edit-notice="${escapeHtml(n.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold tds-text-3 tds-subcard rounded-[10px]">수정</button>
+                <button type="button" data-delete-notice="${escapeHtml(n.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold text-[#f04452] bg-[#f04452]/15 rounded-[10px]">삭제</button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        const snList = document.getElementById('admin-snippet-list');
+        if (state.snippets.length === 0) {
+          snList.innerHTML = '<p class="py-5 text-[13px] tds-text-5 text-center">등록된 상용구가 없어요.</p>';
+        } else {
+          snList.innerHTML = state.snippets.map(s => `
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-[15px] font-bold tds-text-1 truncate">${escapeHtml(s.title)}</p>
+                <p class="text-[12px] tds-text-5 truncate mt-0.5">${escapeHtml(s.category)} · ${escapeHtml(s.content)}</p>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" data-edit-snippet="${escapeHtml(s.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold tds-text-3 tds-subcard rounded-[10px]">수정</button>
+                <button type="button" data-delete-snippet="${escapeHtml(s.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold text-[#f04452] bg-[#f04452]/15 rounded-[10px]">삭제</button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        const userList = document.getElementById('admin-user-list');
+        userList.innerHTML = state.users.map(u => `
+          <div class="py-3.5 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="tossface w-10 h-10 rounded-[12px] tds-subcard flex items-center justify-center text-xl shrink-0">${escapeHtml(u.avatar || '👤')}</span>
+              <div class="min-w-0">
+                <p class="text-[15px] font-bold tds-text-1 truncate">${escapeHtml(u.name)} <span class="text-[11px] font-bold ${u.role === 'admin' ? 'text-[#3182f6] bg-[#3182f6]/12' : 'tds-text-4 tds-subcard'} px-2 py-0.5 rounded-md ml-1">${u.role === 'admin' ? '관리자' : '팀원'}</span></p>
+                <p class="text-[12px] tds-text-5 mt-0.5">${escapeHtml(u.title || '')} · PIN: ${escapeHtml(u.pin)}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" data-edit-user="${escapeHtml(u.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold tds-text-3 tds-subcard rounded-[10px]">수정</button>
+              ${state.users.length > 1 ? `<button type="button" data-delete-user="${escapeHtml(u.id)}" class="tds-press px-3 py-1.5 text-[13px] font-bold text-[#f04452] bg-[#f04452]/15 rounded-[10px]">삭제</button>` : ''}
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('setting-title').value = state.settings.title || '';
+        document.getElementById('setting-subtitle').value = state.settings.subtitle || '';
+        document.getElementById('setting-pin').value = state.settings.pin || '';
+        document.getElementById('setting-script-url').value = state.settings.scriptUrl || '';
+        document.getElementById('gas-code-preview').textContent = GAS_CODE;
+      }
+
+      function renderAll() {
+        renderHeader();
+        if (activeTab === 'home') renderHome();
+        if (activeTab === 'bookmarks') renderBookmarks();
+        if (activeTab === 'snippets') renderSnippets();
+        if (activeTab === 'notices') renderNotices();
+        if (activeTab === 'admin') renderAdmin();
+      }
+
+      // Navigation & Tab events
+      document.querySelectorAll('[data-tab]').forEach(btn => {
+        btn.addEventListener('click', () => setTab(btn.dataset.tab));
+      });
+      document.querySelectorAll('[data-goto]').forEach(btn => {
+        btn.addEventListener('click', () => setTab(btn.dataset.goto));
+      });
+      document.querySelectorAll('[data-admin-sub]').forEach(btn => {
+        btn.addEventListener('click', () => setAdminSub(btn.dataset.adminSub));
+      });
+
+      document.getElementById('btn-clear-recent').addEventListener('click', () => {
+        recentBmIds = [];
+        saveJsonArray(RECENT_BM_KEY, recentBmIds);
+        renderHome();
+        showToast('최근 방문 기록을 비웠어요.');
+      });
+
+      document.getElementById('toggle-show-hidden-bm').addEventListener('change', (e) => {
+        showHiddenBm = e.target.checked;
+        renderBookmarks();
+      });
+
+      // Personal Bookmark Quick Add from Bookmarks Tab
+      document.getElementById('btn-quick-add-bm').addEventListener('click', () => {
+        const form = document.getElementById('personal-bm-form');
+        form.classList.toggle('hidden');
+        if (!form.classList.contains('hidden')) document.getElementById('p-bm-name').focus();
+      });
+      document.getElementById('btn-close-personal-bm').addEventListener('click', () => {
+        document.getElementById('personal-bm-form').classList.add('hidden');
+      });
+
+      document.getElementById('personal-bm-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const user = getCurrentUser();
+        const name = document.getElementById('p-bm-name').value.trim();
+        const url = normalizeUrl(document.getElementById('p-bm-url').value);
+        const category = document.getElementById('p-bm-category').value;
+        const desc = document.getElementById('p-bm-desc').value.trim();
+        const useFavicon = document.getElementById('p-bm-favicon').checked;
+        if (!name || url === '#') return;
+
+        const newId = 'bm-' + Date.now();
+        state.bookmarks.unshift({
+          id: newId,
+          name, url, category, icon: '🔗', useFavicon,
+          owner: user ? user.id : 'ALL',
+          desc, pinned: true
+        });
+        if (user) {
+          const prefs = getUserPrefs();
+          if (Array.isArray(prefs.pinnedBmIds)) prefs.pinnedBmIds.push(newId);
+        }
+        e.target.reset();
+        document.getElementById('p-bm-favicon').checked = true;
+        document.getElementById('personal-bm-form').classList.add('hidden');
+        saveState();
+        renderAll();
+        showToast('내 전용 북마크가 추가되었어요.');
+      });
+
+      document.getElementById('btn-quick-add-snippet').addEventListener('click', () => {
+        setTab('admin');
+        setAdminSub('snippet');
+        document.getElementById('snippet-title').focus();
+      });
+      document.getElementById('btn-quick-add-notice').addEventListener('click', () => {
+        setTab('admin');
+        setAdminSub('notice');
+        document.getElementById('notice-title').focus();
+      });
+
+      // Global search & Keyboard shortcut (/)
+      const searchInput = document.getElementById('global-search');
+      const clearSearchBtn = document.getElementById('clear-search');
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim();
+        clearSearchBtn.classList.toggle('hidden', !searchQuery);
+        renderAll();
+      });
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        clearSearchBtn.classList.add('hidden');
+        renderAll();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+          e.preventDefault();
+          if (activeTab === 'admin') setTab('home');
+          searchInput.focus();
+        } else if (e.key === 'Escape') {
+          document.getElementById('notice-modal').classList.add('hidden');
+          closeConfirm();
+        }
+      });
+
+      // Emoji picker
+      document.querySelectorAll('.emoji-pick').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('bm-icon').value = btn.textContent;
+        });
+      });
+
+      // Bookmark Form Submit (Admin)
+      document.getElementById('bm-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const editId = document.getElementById('bm-edit-id').value;
+        const name = document.getElementById('bm-name').value.trim();
+        const url = normalizeUrl(document.getElementById('bm-url').value);
+        const category = document.getElementById('bm-category').value;
+        const owner = document.getElementById('bm-owner').value || 'ALL';
+        const icon = document.getElementById('bm-icon').value.trim() || '🔗';
+        const useFavicon = document.getElementById('bm-use-favicon').checked;
+        const desc = document.getElementById('bm-desc').value.trim();
+        const pinned = document.getElementById('bm-pinned').checked;
+
+        if (!name || url === '#') return;
+
+        if (editId) {
+          const idx = state.bookmarks.findIndex(b => b.id === editId);
+          if (idx !== -1) {
+            state.bookmarks[idx] = { ...state.bookmarks[idx], name, url, category, owner, icon, useFavicon, desc, pinned };
+            showToast('북마크가 수정되었어요.');
+          }
+        } else {
+          state.bookmarks.unshift({
+            id: 'bm-' + Date.now(),
+            name, url, category, owner, icon, useFavicon, desc, pinned
+          });
+          showToast('새 북마크가 추가되었어요.');
+        }
+
+        resetBmForm();
+        saveState();
+        renderAll();
+      });
+
+      function resetBmForm() {
+        document.getElementById('bm-form').reset();
+        document.getElementById('bm-edit-id').value = '';
+        document.getElementById('bm-icon').value = '🔗';
+        document.getElementById('bm-use-favicon').checked = true;
+        document.getElementById('bm-form-title').textContent = '새 북마크 추가';
+        document.getElementById('bm-submit-btn').textContent = '북마크 저장';
+        document.getElementById('bm-cancel-edit').classList.add('hidden');
+      }
+      document.getElementById('bm-cancel-edit').addEventListener('click', resetBmForm);
+
+      // Notice Form Submit
+      document.getElementById('notice-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const editId = document.getElementById('notice-edit-id').value;
+        const title = document.getElementById('notice-title').value.trim();
+        const tag = document.getElementById('notice-tag').value;
+        const author = document.getElementById('notice-author').value.trim() || '관리자';
+        const body = document.getElementById('notice-body').value.trim();
+        const pinned = document.getElementById('notice-pinned').checked;
+        const today = new Date().toISOString().slice(0, 10);
+
+        if (!title || !body) return;
+
+        if (editId) {
+          const idx = state.notices.findIndex(n => n.id === editId);
+          if (idx !== -1) {
+            state.notices[idx] = { ...state.notices[idx], title, tag, author, body, pinned };
+            showToast('공지사항이 수정되었어요.');
+          }
+        } else {
+          state.notices.unshift({
+            id: 'nt-' + Date.now(),
+            title, tag, author, body, pinned, date: today
+          });
+          showToast('공지사항이 등록되었어요.');
+        }
+
+        resetNoticeForm();
+        saveState();
+        renderAll();
+      });
+
+      function resetNoticeForm() {
+        document.getElementById('notice-form').reset();
+        document.getElementById('notice-edit-id').value = '';
+        document.getElementById('notice-form-title').textContent = '새 공지사항 등록';
+        document.getElementById('notice-submit-btn').textContent = '공지 등록';
+        document.getElementById('notice-cancel-edit').classList.add('hidden');
+      }
+      document.getElementById('notice-cancel-edit').addEventListener('click', resetNoticeForm);
+
+      // Snippet Form Submit
+      document.getElementById('snippet-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const editId = document.getElementById('snippet-edit-id').value;
+        const title = document.getElementById('snippet-title').value.trim();
+        const category = document.getElementById('snippet-category').value;
+        const content = document.getElementById('snippet-content').value.trim();
+        if (!title || !content) return;
+
+        if (editId) {
+          const idx = state.snippets.findIndex(s => s.id === editId);
+          if (idx !== -1) {
+            state.snippets[idx] = { ...state.snippets[idx], title, category, content };
+            showToast('상용구가 수정되었어요.');
+          }
+        } else {
+          state.snippets.unshift({ id: 'sn-' + Date.now(), title, category, content });
+          showToast('상용구가 등록되었어요.');
+        }
+
+        resetSnippetForm();
+        saveState();
+        renderAll();
+      });
+
+      function resetSnippetForm() {
+        document.getElementById('snippet-form').reset();
+        document.getElementById('snippet-edit-id').value = '';
+        document.getElementById('snippet-form-title').textContent = '새 상용구 등록';
+        document.getElementById('snippet-submit-btn').textContent = '상용구 저장';
+        document.getElementById('snippet-cancel-edit').classList.add('hidden');
+      }
+      document.getElementById('snippet-cancel-edit').addEventListener('click', resetSnippetForm);
+
+      // User Form Submit
+      document.getElementById('user-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const editId = document.getElementById('user-edit-id').value;
+        const name = document.getElementById('user-name').value.trim();
+        const title = document.getElementById('user-title').value.trim() || '팀원';
+        const pin = document.getElementById('user-pin').value.trim() || '0000';
+        const avatar = document.getElementById('user-avatar').value.trim() || '👤';
+        const role = document.getElementById('user-role').value;
+        if (!name) return;
+
+        if (editId) {
+          const idx = state.users.findIndex(u => u.id === editId);
+          if (idx !== -1) {
+            state.users[idx] = { ...state.users[idx], name, title, pin, avatar, role };
+            showToast('팀원 정보가 수정되었어요.');
+          }
+        } else {
+          state.users.push({
+            id: 'u-' + Date.now(),
+            name, title, pin, avatar, role,
+            prefs: { pinnedBmIds: null, hiddenBmIds: [] }
+          });
+          showToast('새 팀원이 추가되었어요.');
+        }
+
+        resetUserForm();
+        saveState();
+        renderAll();
+      });
+
+      function resetUserForm() {
+        document.getElementById('user-form').reset();
+        document.getElementById('user-edit-id').value = '';
+        document.getElementById('user-avatar').value = '🧑‍💼';
+        document.getElementById('user-form-title').textContent = '팀원 계정 추가 / 수정';
+        document.getElementById('user-submit-btn').textContent = '팀원 저장';
+        document.getElementById('user-cancel-edit').classList.add('hidden');
+      }
+      document.getElementById('user-cancel-edit').addEventListener('click', resetUserForm);
+
+      // Settings Form Submit
+      document.getElementById('settings-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        state.settings.title = document.getElementById('setting-title').value.trim() || 'AX팀 업무 포털';
+        state.settings.subtitle = document.getElementById('setting-subtitle').value.trim();
+        state.settings.pin = document.getElementById('setting-pin').value.trim();
+        state.settings.scriptUrl = document.getElementById('setting-script-url').value.trim();
+        if (state.settings.pin) adminUnlocked = true;
+        saveState();
+        updateSyncUI('ok');
+        renderHeader();
+        showToast('포털 설정이 저장되었어요.');
+      });
+
+      document.getElementById('btn-header-sync').addEventListener('click', () => syncFromSheet(true));
+      document.getElementById('btn-test-sync').addEventListener('click', () => {
+        state.settings.scriptUrl = document.getElementById('setting-script-url').value.trim();
+        saveState(true);
+        syncFromSheet(true);
+      });
+      document.getElementById('btn-push-sync').addEventListener('click', () => {
+        state.settings.scriptUrl = document.getElementById('setting-script-url').value.trim();
+        saveState(true);
+        syncToSheet(true);
+      });
+      document.getElementById('btn-copy-gas').addEventListener('click', () => {
+        copyText(GAS_CODE, 'Apps Script 코드가 복사되었어요.');
+      });
+
+      // Admin Unlock
+      document.getElementById('admin-unlock-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('admin-pin-input').value.trim();
+        if (input === String(state.settings.pin)) {
+          adminUnlocked = true;
+          document.getElementById('admin-pin-input').value = '';
+          checkAdminLock();
+          showToast('관리자 잠금이 해제되었어요.');
+        } else {
+          showToast('PIN 번호가 일치하지 않아요.');
+        }
+      });
+
+      // Export / Import / Reset
+      document.getElementById('btn-export-json').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'team-portal-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('백업 파일을 다운로드했어요.');
+      });
+
+      document.getElementById('input-import-json').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const parsed = JSON.parse(reader.result);
+            if (parsed && Array.isArray(parsed.bookmarks) && Array.isArray(parsed.notices)) {
+              state = {
+                settings: parsed.settings || state.settings,
+                users: Array.isArray(parsed.users) ? parsed.users : state.users,
+                snippets: Array.isArray(parsed.snippets) ? parsed.snippets : state.snippets,
+                bookmarks: parsed.bookmarks,
+                notices: parsed.notices
+              };
+              if (!state.settings.scriptUrl) state.settings.scriptUrl = EMBEDDED_SCRIPT_URL;
+              saveState();
+              renderAll();
+              showToast('데이터를 성공적으로 불러왔어요.');
+            } else {
+              showToast('올바른 포털 백업 파일이 아니에요.');
+            }
+          } catch (err) {
+            showToast('파일을 읽는 중 오류가 발생했어요.');
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      });
+
+      document.getElementById('btn-reset-data').addEventListener('click', () => {
+        openConfirm('기본 샘플 초기화', '현재 등록된 북마크와 공지사항을 기본 샘플 상태로 되돌릴까요?', () => {
+          state = JSON.parse(JSON.stringify(DEFAULT_DATA));
+          saveState();
+          renderAll();
+          showToast('기본 샘플로 초기화되었어요.');
+        });
+      });
+
+      // Delegated clicks
+      document.addEventListener('click', (e) => {
+        const loginUserBtn = e.target.closest('[data-select-login-user]');
+        if (loginUserBtn) {
+          selectedLoginUserId = loginUserBtn.dataset.selectLoginUser;
+          const u = state.users.find(x => x.id === selectedLoginUserId);
+          if (u) {
+            document.getElementById('login-selected-label').textContent = `${u.avatar || '👤'} ${u.name}님 선택됨`;
+            document.getElementById('login-form').classList.remove('hidden');
+            renderLoginScreen();
+            document.getElementById('login-pin-input').focus();
+          }
+          return;
+        }
+
+        const visitLink = e.target.closest('[data-visit-bm]');
+        if (visitLink) {
+          recordBookmarkVisit(visitLink.dataset.visitBm);
+        }
+
+        const bmCatBtn = e.target.closest('[data-bm-cat]');
+        if (bmCatBtn) {
+          bmCategoryFilter = bmCatBtn.dataset.bmCat;
+          renderBookmarks();
+          return;
+        }
+
+        const snCatBtn = e.target.closest('[data-sn-cat]');
+        if (snCatBtn) {
+          snippetCategoryFilter = snCatBtn.dataset.snCat;
+          renderSnippets();
+          return;
+        }
+
+        const ntFilterBtn = e.target.closest('[data-notice-filter]');
+        if (ntFilterBtn) {
+          noticeFilter = ntFilterBtn.dataset.noticeFilter;
+          renderNotices();
+          return;
+        }
+
+        const pinBtn = e.target.closest('[data-toggle-bm-pin]');
+        if (pinBtn) {
+          toggleUserBmPin(pinBtn.dataset.toggleBmPin);
+          return;
+        }
+
+        const hideBtn = e.target.closest('[data-toggle-bm-hide]');
+        if (hideBtn) {
+          toggleUserBmHide(hideBtn.dataset.toggleBmHide);
+          return;
+        }
+
+        const delPersonalBm = e.target.closest('[data-delete-personal-bm]');
+        if (delPersonalBm) {
+          const id = delPersonalBm.dataset.deletePersonalBm;
+          openConfirm('내 북마크 삭제', '직접 추가한 이 북마크를 삭제할까요?', () => {
+            state.bookmarks = state.bookmarks.filter(b => b.id !== id);
+            saveState();
+            renderAll();
+            showToast('북마크가 삭제되었어요.');
+          });
+          return;
+        }
+
+        const copyBtn = e.target.closest('[data-copy-url]');
+        if (copyBtn) {
+          copyText(copyBtn.dataset.copyUrl, '링크가 복사되었어요.');
+          return;
+        }
+
+        const copySnippetBtn = e.target.closest('[data-copy-snippet]');
+        if (copySnippetBtn) {
+          const s = state.snippets.find(item => item.id === copySnippetBtn.dataset.copySnippet);
+          if (s) copyText(s.content, `'${s.title}' 복사 완료!`);
+          return;
+        }
+
+        const openNoticeBtn = e.target.closest('[data-open-notice]');
+        if (openNoticeBtn) {
+          const n = state.notices.find(item => item.id === openNoticeBtn.dataset.openNotice);
+          if (n) {
+            currentModalNoticeId = n.id;
+            markNoticeRead(n.id);
+            const tagEl = document.getElementById('modal-notice-tag');
+            tagEl.textContent = n.tag;
+            tagEl.className = 'px-2.5 py-0.5 rounded-[8px] text-[12px] font-bold ' + getTagBadgeClass(n.tag);
+            document.getElementById('modal-notice-date').textContent = n.date;
+            document.getElementById('modal-notice-title').textContent = n.title;
+            document.getElementById('modal-notice-author').textContent = '작성자 · ' + (n.author || '팀');
+            document.getElementById('modal-notice-body').textContent = n.body;
+            document.getElementById('notice-modal').classList.remove('hidden');
+            renderAll();
+          }
+          return;
+        }
+
+        const editBmBtn = e.target.closest('[data-edit-bm]');
+        if (editBmBtn) {
+          const b = state.bookmarks.find(item => item.id === editBmBtn.dataset.editBm);
+          if (b) {
+            document.getElementById('bm-edit-id').value = b.id;
+            document.getElementById('bm-name').value = b.name;
+            document.getElementById('bm-url').value = b.url;
+            document.getElementById('bm-category').value = b.category;
+            document.getElementById('bm-owner').value = b.owner || 'ALL';
+            document.getElementById('bm-icon').value = b.icon || '🔗';
+            document.getElementById('bm-use-favicon').checked = b.useFavicon !== false;
+            document.getElementById('bm-desc').value = b.desc || '';
+            document.getElementById('bm-pinned').checked = Boolean(b.pinned);
+            document.getElementById('bm-form-title').textContent = '북마크 수정';
+            document.getElementById('bm-submit-btn').textContent = '수정 완료';
+            document.getElementById('bm-cancel-edit').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          return;
+        }
+
+        const delBmBtn = e.target.closest('[data-delete-bm]');
+        if (delBmBtn) {
+          const id = delBmBtn.dataset.deleteBm;
+          openConfirm('북마크 삭제', '이 북마크를 목록에서 삭제할까요?', () => {
+            state.bookmarks = state.bookmarks.filter(b => b.id !== id);
+            saveState();
+            renderAll();
+            showToast('북마크가 삭제되었어요.');
+          });
+          return;
+        }
+
+        const editNtBtn = e.target.closest('[data-edit-notice]');
+        if (editNtBtn) {
+          const n = state.notices.find(item => item.id === editNtBtn.dataset.editNotice);
+          if (n) {
+            document.getElementById('notice-edit-id').value = n.id;
+            document.getElementById('notice-title').value = n.title;
+            document.getElementById('notice-tag').value = n.tag;
+            document.getElementById('notice-author').value = n.author || '';
+            document.getElementById('notice-body').value = n.body;
+            document.getElementById('notice-pinned').checked = Boolean(n.pinned);
+            document.getElementById('notice-form-title').textContent = '공지사항 수정';
+            document.getElementById('notice-submit-btn').textContent = '수정 완료';
+            document.getElementById('notice-cancel-edit').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          return;
+        }
+
+        const delNtBtn = e.target.closest('[data-delete-notice]');
+        if (delNtBtn) {
+          const id = delNtBtn.dataset.deleteNotice;
+          openConfirm('공지사항 삭제', '이 공지사항을 삭제할까요?', () => {
+            state.notices = state.notices.filter(n => n.id !== id);
+            saveState();
+            renderAll();
+            showToast('공지사항이 삭제되었어요.');
+          });
+          return;
+        }
+
+        const editSnBtn = e.target.closest('[data-edit-snippet]');
+        if (editSnBtn) {
+          const s = state.snippets.find(item => item.id === editSnBtn.dataset.editSnippet);
+          if (s) {
+            document.getElementById('snippet-edit-id').value = s.id;
+            document.getElementById('snippet-title').value = s.title;
+            document.getElementById('snippet-category').value = s.category || '기타';
+            document.getElementById('snippet-content').value = s.content;
+            document.getElementById('snippet-form-title').textContent = '상용구 수정';
+            document.getElementById('snippet-submit-btn').textContent = '수정 완료';
+            document.getElementById('snippet-cancel-edit').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          return;
+        }
+
+        const delSnBtn = e.target.closest('[data-delete-snippet]');
+        if (delSnBtn) {
+          const id = delSnBtn.dataset.deleteSnippet;
+          openConfirm('상용구 삭제', '이 상용구를 삭제할까요?', () => {
+            state.snippets = state.snippets.filter(s => s.id !== id);
+            saveState();
+            renderAll();
+            showToast('상용구가 삭제되었어요.');
+          });
+          return;
+        }
+
+        const editUserBtn = e.target.closest('[data-edit-user]');
+        if (editUserBtn) {
+          const u = state.users.find(item => item.id === editUserBtn.dataset.editUser);
+          if (u) {
+            document.getElementById('user-edit-id').value = u.id;
+            document.getElementById('user-name').value = u.name;
+            document.getElementById('user-title').value = u.title || '';
+            document.getElementById('user-pin').value = u.pin;
+            document.getElementById('user-avatar').value = u.avatar || '👤';
+            document.getElementById('user-role').value = u.role || 'member';
+            document.getElementById('user-form-title').textContent = '팀원 정보 수정';
+            document.getElementById('user-submit-btn').textContent = '수정 완료';
+            document.getElementById('user-cancel-edit').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          return;
+        }
+
+        const delUserBtn = e.target.closest('[data-delete-user]');
+        if (delUserBtn) {
+          const id = delUserBtn.dataset.deleteUser;
+          openConfirm('팀원 삭제', '이 팀원 계정을 삭제할까요?', () => {
+            state.users = state.users.filter(u => u.id !== id);
+            saveState();
+            renderAll();
+            showToast('팀원 계정이 삭제되었어요.');
+          });
+          return;
+        }
+      });
+
+      // Modal controls
+      document.getElementById('close-notice-modal').addEventListener('click', () => {
+        document.getElementById('notice-modal').classList.add('hidden');
+      });
+      document.getElementById('close-notice-modal-btn').addEventListener('click', () => {
+        document.getElementById('notice-modal').classList.add('hidden');
+      });
+      document.getElementById('notice-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'notice-modal') document.getElementById('notice-modal').classList.add('hidden');
+      });
+      document.getElementById('copy-notice-text').addEventListener('click', () => {
+        const n = state.notices.find(item => item.id === currentModalNoticeId);
+        if (n) copyText(n.title + '\n\n' + n.body, '공지 본문이 복사되었어요.');
+      });
+
+      document.getElementById('confirm-cancel').addEventListener('click', closeConfirm);
+      document.getElementById('confirm-ok').addEventListener('click', () => {
+        if (typeof confirmCallback === 'function') confirmCallback();
+        closeConfirm();
+      });
+
+      // Initialize
+      initTheme();
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const apiParam = params.get('api');
+        if (apiParam && apiParam.startsWith('https://script.google.com/')) {
+          state.settings.scriptUrl = apiParam.trim();
+        }
+      } catch (e) {}
+
+      if (!state.settings.scriptUrl) {
+        state.settings.scriptUrl = EMBEDDED_SCRIPT_URL;
+      }
+
+      updateSyncUI('ok');
+      setAdminSub('bm');
+      renderLoginScreen();
+      setTab('home');
+      syncFromSheet(false);
+    })();
+  </script>
+</body>
+</html>
